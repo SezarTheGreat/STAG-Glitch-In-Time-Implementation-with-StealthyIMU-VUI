@@ -92,6 +92,11 @@ def get_stag_bifurcation(acc_path, gyro_path, duration_seconds, fs=400):
     t_acc, val_acc = load_raw_sensor(acc_path)
     t_gyro, load_gyro = load_raw_sensor(gyro_path)
     
+    # Noise reduction (Median Filter) as per paper preprocessing
+    import scipy.signal
+    val_acc = scipy.signal.medfilt(val_acc, kernel_size=(1, 5))
+    load_gyro = scipy.signal.medfilt(load_gyro, kernel_size=(1, 5))
+    
     # Z-score normalize raw signals
     val_acc_norm = (val_acc - np.mean(val_acc, axis=1, keepdims=True)) / (np.std(val_acc, axis=1, keepdims=True) + 1e-8)
     val_gyro_norm = (load_gyro - np.mean(load_gyro, axis=1, keepdims=True)) / (np.std(load_gyro, axis=1, keepdims=True) + 1e-8)

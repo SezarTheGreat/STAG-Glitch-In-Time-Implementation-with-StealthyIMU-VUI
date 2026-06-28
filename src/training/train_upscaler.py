@@ -53,7 +53,7 @@ def train_stag_upscaler(metadata_file, dataset_root, save_path, max_samples=None
         return None
         
     upscaler = StagUpscaler()
-    upscaler.fit(acc_odd_list, gyro_even_list, acc_even_list, t_odd_list, t_even_list)
+    upscaler.fit(acc_odd_list, gyro_even_list, acc_even_list, t_odd_list, t_even_list, use_grid_search=True)
     
     # Save model
     os.makedirs(os.path.dirname(save_path), exist_ok=True)

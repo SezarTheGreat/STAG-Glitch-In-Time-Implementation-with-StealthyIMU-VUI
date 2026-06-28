@@ -7,7 +7,7 @@ import torch
 import numpy as np
 from src.pipeline.dataset import load_splits, get_stag_bifurcation
 from src.pipeline.features import extract_spectrogram
-from src.models.slu_dnn import CharacterTokenizer, SLUModel
+from src.models.slu_dnn import CharacterTokenizer, PaperSLUModel, SLUModel
 from src.training.train_upscaler import train_stag_upscaler
 from src.training.train_slu import train_kd_pipeline
 from src.evaluation.metrics import calculate_wer, calculate_seer, calculate_ser
@@ -37,11 +37,15 @@ def run_dryrun(meta_file, data_root, save_dir):
     tokenizer = CharacterTokenizer()
     
     student_path = os.path.join(save_dir, "student_model.pt")
-    student_model = SLUModel(vocab_size=tokenizer.vocab_size).to(device)
+    student_model = PaperSLUModel(vocab_size=tokenizer.vocab_size).to(device)
     student_model.load_state_dict(torch.load(student_path, map_location=device))
     student_model.eval()
     
-    _, _, test_rows = load_splits(meta_file)
+    train_rows, val_rows, test_rows = load_splits(meta_file)
+    all_rows = train_rows + val_rows + test_rows
+    unique_targets = list(set(row[3] for row in all_rows))
+    valid_sequences = [tokenizer.encode(t) for t in unique_targets]
+    
     test_rows = test_rows[:10] # evaluate 10 samples
     
     wers, seers, sers = [], [], []
@@ -80,7 +84,7 @@ def run_dryrun(meta_file, data_root, save_dir):
             input_tensor = torch.FloatTensor(imu_spec).unsqueeze(0).to(device) # Shape: (1, 300, 30)
             
             # Decode
-            pred_tokens = student_model.predict(input_tensor, sos_id=tokenizer.sos_id, eos_id=tokenizer.eos_id)
+            pred_tokens = student_model.predict(input_tensor, sos_id=tokenizer.sos_id, eos_id=tokenizer.eos_id, valid_sequences=valid_sequences)
             pred_text = tokenizer.decode(pred_tokens[0].tolist())
             
             ref_text = semantic_frame
@@ -133,6 +137,114 @@ def run_dryrun(meta_file, data_root, save_dir):
     
     print("\nDryrun successfully completed!")
 
+def run_evaluation(meta_file, data_root, save_dir, max_samples=None, model_type="SLUModel"):
+    print("==================================================")
+    print("Starting Evaluation Pipeline...")
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    tokenizer = CharacterTokenizer()
+    
+    # 1. Load splits
+    train_rows, val_rows, test_rows = load_splits(meta_file)
+    all_rows = train_rows + val_rows + test_rows
+    unique_targets = list(set(row[3] for row in all_rows))
+    valid_sequences = [tokenizer.encode(t) for t in unique_targets]
+    
+    if max_samples is not None:
+        test_rows = test_rows[:max_samples]
+        
+    print(f"Total test split size: {len(test_rows)} rows")
+    
+    # 2. Load upscaler
+    upscaler_path = os.path.join(save_dir, "upscaler.pkl")
+    if not os.path.exists(upscaler_path):
+        print(f"Error: Upscaler model not found at {upscaler_path}")
+        return
+    with open(upscaler_path, 'rb') as f:
+        upscaler = pickle.load(f)
+        
+    # 3. Load student SLU model
+    student_path = os.path.join(save_dir, "student_model.pt")
+    if not os.path.exists(student_path):
+        print(f"Error: Student model not found at {student_path}")
+        return
+    
+    if model_type == "PaperSLUModel":
+        student_model = PaperSLUModel(vocab_size=tokenizer.vocab_size).to(device)
+    else:
+        student_model = SLUModel(vocab_size=tokenizer.vocab_size).to(device)
+        
+    student_model.load_state_dict(torch.load(student_path, map_location=device))
+    student_model.eval()
+    
+    print("Running batch predictions...")
+    wers, seers, sers = [], [], []
+    valid_count = 0
+    
+    for idx, row in enumerate(test_rows):
+        uuid = row[0]
+        duration = float(row[1])
+        wav_path_rel = row[2]
+        semantic_frame = row[3]
+        
+        base_dir = os.path.dirname(wav_path_rel)
+        acc_path = os.path.join(data_root, base_dir.replace('./', ''), f"{uuid}.acc")
+        gyro_path = os.path.join(data_root, base_dir.replace('./', ''), f"{uuid}.gyro")
+        
+        if not os.path.exists(acc_path) or not os.path.exists(gyro_path):
+            continue
+            
+        try:
+            # 4. STAG Upscaler reconstruction
+            acc_odd, gyro_even, acc_even_target, t_even, t_odd = get_stag_bifurcation(
+                acc_path, gyro_path, duration
+            )
+            acc_z_400 = upscaler.reconstruct_signal(acc_odd, gyro_even, t_odd, t_even)
+            
+            # 5. Spectrogram extraction
+            imu_spec = extract_spectrogram(acc_z_400, fs_source=400, fs_target=500, n_bins=30)
+            
+            # 6. Pad sequence
+            max_frames = 300
+            if imu_spec.shape[0] > max_frames:
+                imu_spec = imu_spec[:max_frames, :]
+            else:
+                padding = np.zeros((max_frames - imu_spec.shape[0], imu_spec.shape[1]))
+                imu_spec = np.vstack([imu_spec, padding])
+                
+            input_tensor = torch.FloatTensor(imu_spec).unsqueeze(0).to(device)
+            
+            # 7. Prediction
+            pred_tokens = student_model.predict(input_tensor, sos_id=tokenizer.sos_id, eos_id=tokenizer.eos_id, valid_sequences=valid_sequences)
+            pred_text = tokenizer.decode(pred_tokens[0].tolist())
+            
+            ref_text = semantic_frame
+            
+            # Calculate metrics
+            wer = calculate_wer(ref_text, pred_text)
+            seer = calculate_seer(ref_text, pred_text)
+            ser = calculate_ser(ref_text, pred_text)
+            
+            wers.append(wer)
+            seers.append(seer)
+            sers.append(ser)
+            
+            valid_count += 1
+            if valid_count % 100 == 0:
+                print(f"Processed {valid_count} samples...")
+        except Exception:
+            continue
+            
+    if wers:
+        print("\n==================================================")
+        print("--- Final Eavesdropping Pipeline Performance ---")
+        print(f"Total Evaluated Samples               : {valid_count}")
+        print(f"Average Sentence Error Rate (SER)     : {np.mean(sers)*100:.2f}%")
+        print(f"Average Single Entity Error Rate (SEER): {np.mean(seers)*100:.2f}%")
+        print(f"Average Word Error Rate (WER)         : {np.mean(wers)*100:.2f}%")
+        print("==================================================")
+    else:
+        print("Error: No valid test samples were processed.")
+
 def main():
     parser = argparse.ArgumentParser(description="STAG and StealthyIMU Pipeline Orchestrator")
     parser.add_argument("--mode", type=str, default="dryrun", choices=["train_upscaler", "train_slu", "evaluate", "dryrun"],
@@ -149,6 +261,8 @@ def main():
                         help="Number of epochs to train SLU model")
     parser.add_argument("--batch_size", type=int, default=8,
                         help="Batch size for training")
+    parser.add_argument("--model_type", type=str, default="SLUModel", choices=["SLUModel", "PaperSLUModel"],
+                        help="Model architecture class to use")
     args = parser.parse_args()
     
     # Resolve absolute paths
@@ -166,6 +280,8 @@ def main():
         elif args.mode == "train_slu":
             train_kd_pipeline(meta_abs, data_root_abs, os.path.join(save_dir_abs, "upscaler.pkl"), save_dir_abs,
                               epochs=args.epochs, batch_size=args.batch_size, max_samples=args.max_samples)
+        elif args.mode == "evaluate":
+            run_evaluation(meta_abs, data_root_abs, save_dir_abs, max_samples=args.max_samples, model_type=args.model_type)
 
 if __name__ == "__main__":
     main()

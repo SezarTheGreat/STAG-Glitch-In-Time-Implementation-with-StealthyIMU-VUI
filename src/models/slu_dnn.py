@@ -226,9 +226,9 @@ class SLUModel(nn.Module):
             
         return torch.stack(outputs, dim=1) # (batch, trg_len-1, vocab_size)
 
-    def predict(self, src_spectrogram, max_len=150, sos_id=1, eos_id=2):
+    def predict(self, src_spectrogram, max_len=150, sos_id=1, eos_id=2, valid_sequences=None):
         """
-        Greedy decoding prediction logic.
+        Greedy decoding prediction logic with optional trie constraints.
         """
         self.eval()
         with torch.no_grad():
@@ -240,12 +240,115 @@ class SLUModel(nn.Module):
             
             dec_input = torch.tensor([sos_id] * batch_size, device=src_spectrogram.device)
             
+            # Build the trie if valid_sequences is provided
+            trie = None
+            if valid_sequences is not None:
+                trie = {}
+                for seq in valid_sequences:
+                    curr = trie
+                    # We start from after the first sos_id because dec_input starts with sos_id
+                    for token_id in seq[1:]:
+                        if token_id not in curr:
+                            curr[token_id] = {}
+                        curr = curr[token_id]
+            
+            # Track active trie nodes for each batch item
+            active_nodes = [trie] * batch_size if trie is not None else None
+            
             predictions = []
             for t in range(max_len):
                 logits, decoder_hidden, context, _ = self.decoder(dec_input, decoder_hidden, encoder_states, context)
+                
+                if active_nodes is not None:
+                    # Apply trie constraints to the logits
+                    for b in range(batch_size):
+                        curr_node = active_nodes[b]
+                        if curr_node is not None and len(curr_node) > 0:
+                            # Create a mask of invalid tokens (non-keys of the current trie node)
+                            mask = torch.ones(self.vocab_size, dtype=torch.bool, device=logits.device)
+                            for valid_token in curr_node.keys():
+                                mask[valid_token] = False
+                            logits[b, mask] = -float('inf')
+                        elif curr_node is not None:
+                            # Node is empty, meaning target sequence ended. Only allow eos_id.
+                            mask = torch.ones(self.vocab_size, dtype=torch.bool, device=logits.device)
+                            mask[eos_id] = False
+                            logits[b, mask] = -float('inf')
+                
                 top1 = logits.argmax(1)
                 predictions.append(top1)
                 dec_input = top1
                 
+                # Update the active trie nodes based on the chosen token
+                if active_nodes is not None:
+                    for b in range(batch_size):
+                        curr_node = active_nodes[b]
+                        chosen_token = top1[b].item()
+                        if curr_node is not None and chosen_token in curr_node:
+                            active_nodes[b] = curr_node[chosen_token]
+                        else:
+                            active_nodes[b] = None # outside trie or finished
+                            
             predictions = torch.stack(predictions, dim=1) # (batch, max_len)
             return predictions
+
+class PaperSLUEncoder(nn.Module):
+    """
+    Encoder as described in the paper:
+    - 2 convolutional layers (kernel size 3x3, max pooling 2x2)
+    - 3-layer bidirectional Gated Recurrent Unit (BiGRU) with 256 hidden units.
+    """
+    def __init__(self, input_bins=30, encoder_dim=256, num_rnn_layers=3):
+        super(PaperSLUEncoder, self).__init__()
+        
+        self.cnn = nn.Sequential(
+            nn.Conv2d(1, 64, kernel_size=3, padding=1),
+            nn.BatchNorm2d(64),
+            nn.LeakyReLU(0.2),
+            nn.MaxPool2d(kernel_size=(2, 2)), # bins -> 15
+            
+            nn.Conv2d(64, 128, kernel_size=3, padding=1),
+            nn.BatchNorm2d(128),
+            nn.LeakyReLU(0.2),
+            nn.MaxPool2d(kernel_size=(2, 2))  # bins -> 7
+        )
+        
+        # input_bins // 4 = 7
+        rnn_input_dim = 128 * 7
+        
+        self.gru = nn.GRU(
+            input_size=rnn_input_dim,
+            hidden_size=encoder_dim // 2, # BiGRU -> hidden_size * 2 = encoder_dim
+            num_layers=num_rnn_layers,
+            batch_first=True,
+            bidirectional=True
+        )
+        
+        self.dnn = nn.Linear(encoder_dim, encoder_dim)
+
+    def forward(self, x):
+        batch_size, seq_len, bins = x.size()
+        x = x.unsqueeze(1) # (batch, 1, seq_len, bins)
+        
+        x = self.cnn(x) # (batch, 128, seq_len // 4, 7)
+        batch_size, channels, pooled_seq_len, pooled_bins = x.size()
+        
+        x = x.transpose(1, 2).contiguous() # (batch, pooled_seq_len, channels, pooled_bins)
+        x = x.view(batch_size, pooled_seq_len, -1) # (batch, pooled_seq_len, channels * pooled_bins)
+        
+        gru_out, h_n = self.gru(x) # (batch, pooled_seq_len, encoder_dim)
+        encoder_states = self.dnn(gru_out)
+        
+        # Average last states of bidirectional GRU
+        last_hidden = h_n.view(self.gru.num_layers, 2, batch_size, self.gru.hidden_size)
+        last_hidden = last_hidden[-1] # take last layer: shape (2, batch_size, hidden_size)
+        last_hidden = torch.cat([last_hidden[0], last_hidden[1]], dim=-1) # (batch_size, encoder_dim)
+        
+        return encoder_states, last_hidden
+
+class PaperSLUModel(SLUModel):
+    def __init__(self, vocab_size, input_bins=30, encoder_dim=256, decoder_dim=256):
+        super(SLUModel, self).__init__()
+        self.encoder = PaperSLUEncoder(input_bins=input_bins, encoder_dim=encoder_dim)
+        self.decoder = SLUDecoder(vocab_size=vocab_size, encoder_dim=encoder_dim, decoder_dim=decoder_dim)
+        self.vocab_size = vocab_size

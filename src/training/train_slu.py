@@ -9,110 +9,26 @@ from torch.utils.data import Dataset, DataLoader
 import librosa
 from src.pipeline.dataset import load_splits, get_stag_bifurcation
 from src.pipeline.features import extract_spectrogram
-from src.models.slu_dnn import CharacterTokenizer, SLUModel
+from src.models.slu_dnn import CharacterTokenizer, PaperSLUModel as SLUModel
 
-class SpeechIMUKDDataset(Dataset):
+class CachedKDDataset(Dataset):
     """
-    Dataset to load Speech WAV files and corresponding upscaled Accelerometer spectrograms.
+    Dataset to load pre-computed Speech and IMU features.
     """
-    def __init__(self, metadata_rows, dataset_root, upscaler=None, tokenizer=None, max_len=150):
-        self.rows = metadata_rows
-        self.dataset_root = dataset_root
-        self.upscaler = upscaler
-        self.tokenizer = tokenizer or CharacterTokenizer()
-        self.max_len = max_len
+    def __init__(self, data_path):
+        data = torch.load(data_path)
+        self.speech_feats = data['speech_feat']
+        self.imu_feats = data['imu_feat']
+        self.target_tokens = data['target_tokens']
         
-        # Load and cache valid samples
-        self.valid_samples = []
-        self._prepare_samples()
-
-    def _prepare_samples(self):
-        print(f"Caching and preprocessing {len(self.rows)} samples...")
-        for row in self.rows:
-            uuid = row[0]
-            duration = float(row[1])
-            wav_path_rel = row[2]
-            
-            # Transcription labels
-            transcript = row[4]
-            semantic_frame = row[3]
-            
-            # Target is the semantic frame JSON-like string
-            target_text = semantic_frame
-            target_tokens = self.tokenizer.encode(target_text)
-            
-            # Truncate or pad target tokens to max_len
-            if len(target_tokens) > self.max_len:
-                target_tokens = target_tokens[:self.max_len]
-            else:
-                target_tokens = target_tokens + [self.tokenizer.pad_id] * (self.max_len - len(target_tokens))
-            
-            base_dir = os.path.dirname(wav_path_rel)
-            wav_path = os.path.join(self.dataset_root, wav_path_rel.replace('./', ''))
-            acc_path = os.path.join(self.dataset_root, base_dir.replace('./', ''), f"{uuid}.acc")
-            gyro_path = os.path.join(self.dataset_root, base_dir.replace('./', ''), f"{uuid}.gyro")
-            
-            if not os.path.exists(wav_path) or not os.path.exists(acc_path) or not os.path.exists(gyro_path):
-                continue
-                
-            self.valid_samples.append({
-                'uuid': uuid,
-                'duration': duration,
-                'wav_path': wav_path,
-                'acc_path': acc_path,
-                'gyro_path': gyro_path,
-                'target_tokens': np.array(target_tokens)
-            })
-
     def __len__(self):
-        return len(self.valid_samples)
+        return len(self.target_tokens)
 
     def __getitem__(self, idx):
-        sample = self.valid_samples[idx]
-        
-        # 1. Load and process Audio (Speech signal)
-        # Load audio at 16 kHz
-        y, sr = librosa.load(sample['wav_path'], sr=16000)
-        
-        # Extract speech spectrogram (Mel Spectrogram)
-        # To match input dimension we map to 30 bins
-        mel_spec = librosa.feature.melspectrogram(y=y, sr=sr, n_mels=30, n_fft=512, hop_length=320) # 320 hop = 20ms at 16kHz
-        log_mel_spec = librosa.power_to_db(mel_spec, ref=np.max).T # Shape: (frames, 30)
-        
-        # 2. Load and process IMU (Accelerometer signal)
-        # Simulate STAG temporal misalignment and reconstruct Z-axis
-        acc_odd, gyro_even, acc_even_target, t_even, t_odd = get_stag_bifurcation(
-            sample['acc_path'], sample['gyro_path'], sample['duration']
-        )
-        
-        if self.upscaler is not None:
-            # Reconstruct upscaled 400 Hz signal
-            acc_z_400 = self.upscaler.reconstruct_signal(acc_odd, gyro_even, t_odd, t_even)
-        else:
-            # Fallback to simple interpolation if upscaler not trained yet
-            from scipy.interpolate import interp1d
-            acc_z_400 = interp1d(t_odd, acc_odd, kind='linear', fill_value="extrapolate")(t_even)
-            
-        # Extract features (spectrogram) from upscaled Z-axis signal
-        imu_spec = extract_spectrogram(acc_z_400, fs_source=400, fs_target=500, n_bins=30)
-        
-        # Ensure audio and imu sequence lengths match the model padding
-        max_frames = 300 # Max temporal frames (6 seconds at 50 FPS)
-        
-        def pad_sequence(seq):
-            if seq.shape[0] > max_frames:
-                return seq[:max_frames, :]
-            else:
-                padding = np.zeros((max_frames - seq.shape[0], seq.shape[1]))
-                return np.vstack([seq, padding])
-                
-        speech_feat = pad_sequence(log_mel_spec)
-        imu_feat = pad_sequence(imu_spec)
-        
         return {
-            'speech_feat': torch.FloatTensor(speech_feat),
-            'imu_feat': torch.FloatTensor(imu_feat),
-            'target_tokens': torch.LongTensor(sample['target_tokens'])
+            'speech_feat': self.speech_feats[idx],
+            'imu_feat': self.imu_feats[idx],
+            'target_tokens': self.target_tokens[idx]
         }
 
 def train_kd_pipeline(metadata_file, dataset_root, upscaler_path, save_dir, epochs=5, batch_size=8, max_samples=None):
@@ -135,9 +51,9 @@ def train_kd_pipeline(metadata_file, dataset_root, upscaler_path, save_dir, epoc
     
     # Create datasets
     print("Loading Train Dataset...")
-    train_dataset = SpeechIMUKDDataset(train_rows, dataset_root, upscaler=upscaler, tokenizer=tokenizer)
+    train_dataset = CachedKDDataset(os.path.join(save_dir, "train_data.pt"))
     print("Loading Val Dataset...")
-    val_dataset = SpeechIMUKDDataset(val_rows, dataset_root, upscaler=upscaler, tokenizer=tokenizer)
+    val_dataset = CachedKDDataset(os.path.join(save_dir, "val_data.pt"))
     
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
     val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
@@ -154,7 +70,7 @@ def train_kd_pipeline(metadata_file, dataset_root, upscaler_path, save_dir, epoc
     for epoch in range(epochs):
         teacher_model.train()
         total_loss = 0
-        for batch in train_loader:
+        for i, batch in enumerate(train_loader):
             speech_feat = batch['speech_feat'].to(device)
             target_tokens = batch['target_tokens'].to(device)
             
@@ -171,7 +87,10 @@ def train_kd_pipeline(metadata_file, dataset_root, upscaler_path, save_dir, epoc
             
             total_loss += loss.item()
             
-        print(f"Teacher Epoch {epoch+1}/{epochs} - Loss: {total_loss/len(train_loader):.4f}")
+            if (i + 1) % 50 == 0:
+                print(f"  Batch {i+1}/{len(train_loader)} Loss: {loss.item():.4f}", flush=True)
+            
+        print(f"Teacher Epoch {epoch+1}/{epochs} - Loss: {total_loss/len(train_loader):.4f}", flush=True)
         
     # Save Teacher Model
     os.makedirs(save_dir, exist_ok=True)
@@ -194,7 +113,7 @@ def train_kd_pipeline(metadata_file, dataset_root, upscaler_path, save_dir, epoc
     for epoch in range(epochs):
         student_model.train()
         total_loss = 0
-        for batch in train_loader:
+        for i, batch in enumerate(train_loader):
             speech_feat = batch['speech_feat'].to(device)
             imu_feat = batch['imu_feat'].to(device)
             target_tokens = batch['target_tokens'].to(device)
@@ -226,7 +145,10 @@ def train_kd_pipeline(metadata_file, dataset_root, upscaler_path, save_dir, epoc
             
             total_loss += loss.item()
             
-        print(f"Student Epoch {epoch+1}/{epochs} - Combined Loss: {total_loss/len(train_loader):.4f}")
+            if (i + 1) % 50 == 0:
+                print(f"  Batch {i+1}/{len(train_loader)} KD Loss: {loss.item():.4f}", flush=True)
+            
+        print(f"Student Epoch {epoch+1}/{epochs} - Combined Loss: {total_loss/len(train_loader):.4f}", flush=True)
         
     # Save Student Model
     torch.save(student_model.state_dict(), os.path.join(save_dir, "student_model.pt"))
@@ -237,4 +159,5 @@ if __name__ == "__main__":
     root = "c:/Users/jyoti/OneDrive/Desktop/STAG Implementation with StealthyIMU VUI/StealthyIMU_dataset"
     upscaler = "c:/Users/jyoti/OneDrive/Desktop/STAG Implementation with StealthyIMU VUI/models/upscaler.pkl"
     save = "c:/Users/jyoti/OneDrive/Desktop/STAG Implementation with StealthyIMU VUI/models"
-    train_kd_pipeline(meta, root, upscaler, save, epochs=1, batch_size=4)
+    # We will use epoch=15 for teacher, and epoch=30 for student if we want, but let's pass it
+    train_kd_pipeline(meta, root, upscaler, save, epochs=30, batch_size=256)
