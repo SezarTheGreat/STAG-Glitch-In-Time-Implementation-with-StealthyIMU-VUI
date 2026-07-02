@@ -12,3 +12,8 @@ models/*.pkl
 results/
 models_extracted/
 project/
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
