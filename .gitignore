@@ -1,12 +1,13 @@
 /StealthyIMU_dataset
+common/data/StealthyIMU_dataset/
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 .ipynb_checkpoints/
 .DS_Store
-models/*.pt
-models/*.pkl
+**/*.pt
+**/*.pkl
 *.log
 *.zip
 results/
