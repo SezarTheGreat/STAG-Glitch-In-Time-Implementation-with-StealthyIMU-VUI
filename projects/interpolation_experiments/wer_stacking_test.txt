@@ -1,0 +1,511 @@
+%WER 70.92 [ 634 / 894, 305 ins, 80 del, 249 sub ]
+%SER 100.00 [ 100 / 100 ]
+Scored 100 sentences, 0 not present in hyp.
+================================================================================
+ALIGNMENTS
+
+Format:
+<utterance-id>, WER DETAILS
+<eps> ; reference  ; on ; the ; first ;  line
+  I   ;     S      ; =  ;  =  ;   S   ;   D  
+ and  ; hypothesis ; on ; the ; third ; <eps>
+================================================================================
+2da86663-06cd-3f15-80b8-aa4c5f3185bb, %WER 28.57 [ 2 / 7, 1 ins, 0 del, 1 sub ]
+{'action': ; 'weather'| ; 'entities': ; [{'type': ; 'city'| ; 'filler': ; 'portland'}]} ;   <eps>  
+    =      ;     =      ;      =      ;     =     ;    =    ;     =     ;       S       ;     I    
+{'action': ; 'weather'| ; 'entities': ; [{'type': ; 'city'| ; 'filler': ;      'san     ; diego'}]}
+================================================================================
+e8a1b13a-18b4-3626-b867-f1121fe6975d, %WER 69.23 [ 9 / 13, 0 ins, 6 del, 3 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;      'turn      ; right'}| ; {'type': ; 'road'| ; 'filler': ; 'miramar ; road'}]}
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;        S        ;    D     ;    D     ;    D    ;     D     ;    D     ;    D    
+{'action': ;   'weather'|  ; 'entities': ; [{'type': ;  'city'|  ; 'filler': ; 'cincinnati'}]} ;  <eps>   ;  <eps>   ;  <eps>  ;   <eps>   ;  <eps>   ;  <eps>  
+================================================================================
+2c5c372c-8e87-3756-989e-4e9b43949d49, %WER 85.71 [ 6 / 7, 5 ins, 0 del, 1 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]} ;  <eps>   ;  <eps>  ;   <eps>   ;  <eps>   ;    <eps>   
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;       S       ;    I     ;    I    ;     I     ;    I     ;      I     
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;    'take'}|   ; {'type': ; 'road'| ; 'filler': ; 'kennedy ; airport'}]}
+================================================================================
+8ece238f-1ff9-3673-9765-70af76d31b72, %WER 71.43 [ 10 / 14, 0 ins, 6 del, 4 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'turn ;  left'}|  ; {'type': ; 'road'| ; 'filler': ; 'black ; mountain ; road'}]}
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;   S   ;     S     ;    D     ;    D    ;     D     ;   D    ;    D     ;    D    
+{'action': ;   'weather'|  ; 'entities': ; [{'type': ;  'city'|  ; 'filler': ;  'san ; diego'}]} ;  <eps>   ;  <eps>  ;   <eps>   ; <eps>  ;  <eps>   ;  <eps>  
+================================================================================
+979d0497-d04c-3cb9-a875-f7c6496e5493, %WER 28.57 [ 2 / 7, 1 ins, 0 del, 1 sub ]
+{'action': ; 'weather'| ; 'entities': ; [{'type': ; 'city'| ; 'filler': ; 'buffalo'}]} ;  <eps>  
+    =      ;     =      ;      =      ;     =     ;    =    ;     =     ;      S       ;    I    
+{'action': ; 'weather'| ; 'entities': ; [{'type': ; 'city'| ; 'filler': ;  'oklahoma   ; city'}]}
+================================================================================
+963ab37b-d131-3faa-8713-9751ad20b621, %WER 40.00 [ 4 / 10, 0 ins, 3 del, 1 sub ]
+{'action': ; 'reminder'| ; 'entities': ; [{'type': ; 'time'| ; 'filler': ;   'tomorrow   ;   at  ; seven ; am'}]}
+    =      ;      =      ;      =      ;     =     ;    =    ;     =     ;       S       ;   D   ;   D   ;   D   
+{'action': ; 'reminder'| ; 'entities': ; [{'type': ; 'time'| ; 'filler': ; 'tomorrow'}]} ; <eps> ; <eps> ; <eps> 
+================================================================================
+381162d8-f9c6-38e1-adb0-a9ed8e82287b, %WER 69.23 [ 9 / 13, 0 ins, 5 del, 4 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'turn ; left'}|  ; {'type': ; 'road'| ; 'filler': ; 'expedition ; way'}]}
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;   S   ;    S     ;    D     ;    D    ;     D     ;      D      ;    D   
+{'action': ;   'weather'|  ; 'entities': ; [{'type': ;  'city'|  ; 'filler': ;  'el  ; paso'}]} ;  <eps>   ;  <eps>  ;   <eps>   ;    <eps>    ;  <eps> 
+================================================================================
+d3c31ad5-83c2-30e2-bc27-691cc80c485e, %WER 38.46 [ 5 / 13, 2 ins, 0 del, 3 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'take'}| ; {'type': ; 'road'| ; 'filler': ; 'exit ; twenty-eight ;     b'}]}     ; <eps> ;  <eps>  
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;    =     ;    =     ;    =    ;     =     ;   S   ;      S       ;       S       ;   I   ;    I    
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'take'}| ; {'type': ; 'road'| ; 'filler': ;   'i  ;     two      ; seventy-eight ; south ; exit'}]}
+================================================================================
+99508d1e-0472-3d44-9fe8-8207cf0a24b20, %WER 50.00 [ 4 / 8, 0 ins, 0 del, 4 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'keep ;   right'}]}   
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;   S   ;       S       
+{'action': ;   'weather'|  ; 'entities': ; [{'type': ;  'city'|  ; 'filler': ;  'st  ; petersburg'}]}
+================================================================================
+828b7926-22df-3fca-b98c-7ce83f683bf7, %WER 57.14 [ 4 / 7, 1 ins, 0 del, 3 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]} ;  <eps>  
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;       S       ;    I    
+{'action': ;   'weather'|  ; 'entities': ; [{'type': ;  'city'|  ; 'filler': ;   'oklahoma   ; city'}]}
+================================================================================
+d2794087-130b-3987-a0ba-b67b0301d6de, %WER 128.57 [ 9 / 7, 6 ins, 0 del, 3 sub ]
+{'action': ;   'weather'|  ; 'entities': ; [{'type': ;  'city'|  ; 'filler': ; 'mesa'}]} ;  <eps>   ;  <eps>   ;   <eps>   ;   <eps>   ; <eps> ;   <eps>  
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;     S     ;    I     ;    I     ;     I     ;     I     ;   I   ;     I    
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;   'keep   ; right'}| ; {'type': ; 'intent'| ; 'filler': ; 'keep ; right'}]}
+================================================================================
+4abe8151-135c-3b5d-82be-638e267b653e, %WER 28.57 [ 2 / 7, 1 ins, 0 del, 1 sub ]
+{'action': ; 'weather'| ; 'entities': ; [{'type': ; 'city'| ; 'filler': ; 'atlanta'}]} ;   <eps>  
+    =      ;     =      ;      =      ;     =     ;    =    ;     =     ;      S       ;     I    
+{'action': ; 'weather'| ; 'entities': ; [{'type': ; 'city'| ; 'filler': ;    'chula    ; vista'}]}
+================================================================================
+939a49eb-9d5c-3326-91b4-c07041912cf1, %WER 142.86 [ 10 / 7, 7 ins, 0 del, 3 sub ]
+{'action': ;  'reminder'|  ; 'entities': ; [{'type': ;  'time'|  ; 'filler': ; 'tomorrow'}]} ;  <eps>   ;  <eps>   ;  <eps>  ;   <eps>   ; <eps>  ; <eps>  ;    <eps>   
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;       S       ;    I     ;    I     ;    I    ;     I     ;   I    ;   I    ;      I     
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;     'turn     ; right'}| ; {'type': ; 'road'| ; 'filler': ; 'south ; street ; viaduct'}]}
+================================================================================
+838aaa7b-0144-3d2a-8b61-138fa16c0718, %WER 114.29 [ 8 / 7, 7 ins, 0 del, 1 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]} ;  <eps>   ;  <eps>  ;   <eps>   ; <eps> ; <eps> ;     <eps>     ;  <eps>  
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;       S       ;    I     ;    I    ;     I     ;   I   ;   I   ;       I       ;    I    
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;    'take'}|   ; {'type': ; 'road'| ; 'filler': ;   'i  ;  two  ; seventy-eight ; west'}]}
+================================================================================
+c249b6f3-7a81-39b5-acd7-69997bdcd7590, %WER 114.29 [ 8 / 7, 7 ins, 0 del, 1 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]} ;  <eps>   ;  <eps>   ;  <eps>  ;   <eps>   ;   <eps>   ; <eps>  ;     <eps>     
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;       S       ;    I     ;    I     ;    I    ;     I     ;     I     ;   I    ;       I       
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;     'turn     ; right'}| ; {'type': ; 'road'| ; 'filler': ; 'brooklyn ; queens ; expressway'}]}
+================================================================================
+4d4447c5-c976-3d63-b744-ebf7bf5bdcc8, %WER 142.86 [ 10 / 7, 7 ins, 0 del, 3 sub ]
+{'action': ;  'reminder'|  ; 'entities': ; [{'type': ;  'time'|  ; 'filler': ; 'tomorrow'}]} ;  <eps>   ;  <eps>   ;  <eps>  ;   <eps>   ; <eps>  ; <eps>  ;    <eps>   
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;       S       ;    I     ;    I     ;    I    ;     I     ;   I    ;   I    ;      I     
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;     'turn     ; right'}| ; {'type': ; 'road'| ; 'filler': ; 'south ; street ; viaduct'}]}
+================================================================================
+a29a7305-bbdf-3dd1-9fda-6cd2a045775a, %WER 142.86 [ 10 / 7, 7 ins, 0 del, 3 sub ]
+{'action': ;   'weather'|  ; 'entities': ; [{'type': ;  'city'|  ; 'filler': ; 'houston'}]} ;  <eps>   ;  <eps>   ;  <eps>  ;   <eps>   ; <eps>  ; <eps> ;    <eps>   
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;      S       ;    I     ;    I     ;    I    ;     I     ;   I    ;   I   ;      I     
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;    'turn     ; right'}| ; {'type': ; 'road'| ; 'filler': ; 'bronx ; river ; parkway'}]}
+================================================================================
+4676d895-2a50-3986-a34c-be766d64fd36, %WER 28.57 [ 2 / 7, 1 ins, 0 del, 1 sub ]
+{'action': ; 'weather'| ; 'entities': ; [{'type': ; 'city'| ; 'filler': ; 'columbus'}]} ;   <eps>  
+    =      ;     =      ;      =      ;     =     ;    =    ;     =     ;       S       ;     I    
+{'action': ; 'weather'| ; 'entities': ; [{'type': ; 'city'| ; 'filler': ;      'san     ; diego'}]}
+================================================================================
+5d4488db-0b09-3074-a421-de0d1c5f0c49, %WER 30.77 [ 4 / 13, 0 ins, 0 del, 4 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'turn ; right'}| ; {'type': ;  'road'|  ; 'filler': ; 'miramar ;  road'}]}
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;   S   ;    =     ;    =     ;     S     ;     =     ;    S     ;     S    
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'keep ; right'}| ; {'type': ; 'intent'| ; 'filler': ;  'keep   ; right'}]}
+================================================================================
+3bf78973-6090-3cac-a400-84913f8cc783, %WER 114.29 [ 8 / 7, 7 ins, 0 del, 1 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]} ;  <eps>   ;  <eps>  ;   <eps>   ; <eps> ; <eps> ;    <eps>    ;  <eps>  
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;       S       ;    I     ;    I    ;     I     ;   I   ;   I   ;      I      ;    I    
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;    'take'}|   ; {'type': ; 'road'| ; 'filler': ;   'i  ;  four ; ninety-five ; east'}]}
+================================================================================
+bb71d18b-79fa-3cbb-a0bb-1d1f774276900, %WER 57.14 [ 4 / 7, 1 ins, 0 del, 3 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]} ;   <eps>  
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;       S       ;     I    
+{'action': ;   'weather'|  ; 'entities': ; [{'type': ;  'city'|  ; 'filler': ;      'san     ; diego'}]}
+================================================================================
+8a029706-2c6d-3f21-9605-ee793c439d3b, %WER 28.57 [ 2 / 7, 1 ins, 0 del, 1 sub ]
+{'action': ; 'weather'| ; 'entities': ; [{'type': ; 'city'| ; 'filler': ; 'lubbock'}]} ;  <eps>  
+    =      ;     =      ;      =      ;     =     ;    =    ;     =     ;      S       ;    I    
+{'action': ; 'weather'| ; 'entities': ; [{'type': ; 'city'| ; 'filler': ;  'oklahoma   ; city'}]}
+================================================================================
+fccf2dbd-cc8b-36f8-8198-0966b5cdf050, %WER 28.57 [ 2 / 7, 1 ins, 0 del, 1 sub ]
+{'action': ; 'weather'| ; 'entities': ; [{'type': ; 'city'| ; 'filler': ; 'henderson'}]} ;   <eps>  
+    =      ;     =      ;      =      ;     =     ;    =    ;     =     ;       S        ;     I    
+{'action': ; 'weather'| ; 'entities': ; [{'type': ; 'city'| ; 'filler': ;     'chula     ; vista'}]}
+================================================================================
+84dd3d00-1a7a-3b81-aa9c-7c0af9cfb830, %WER 50.00 [ 4 / 8, 0 ins, 0 del, 4 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'turn ; right'}]}
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;   S   ;     S    
+{'action': ;   'weather'|  ; 'entities': ; [{'type': ;  'city'|  ; 'filler': ;  'san ; diego'}]}
+================================================================================
+4e967946-d089-3216-8de8-5520bc9e9bca, %WER 57.14 [ 4 / 7, 1 ins, 0 del, 3 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]} ;  <eps>  
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;       S       ;    I    
+{'action': ;     'sun'|    ; 'entities': ; [{'type': ;  'city'|  ; 'filler': ;     'saint    ; paul'}]}
+================================================================================
+cb00198f-fb4e-3db8-8cb8-0a1338334ab10, %WER 23.08 [ 3 / 13, 0 ins, 0 del, 3 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'turn ; left'}|  ; {'type': ; 'road'| ; 'filler': ;   'pearl  ; street'}]}
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;   =   ;    S     ;    =     ;    =    ;     =     ;     S     ;     S     
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'turn ; right'}| ; {'type': ; 'road'| ; 'filler': ; 'brooklyn ; bridge'}]}
+================================================================================
+5b93af72-993f-3e60-9f8d-faf9d9f65dc60, %WER 85.71 [ 6 / 7, 5 ins, 0 del, 1 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'destination'}]} ;  <eps>   ;  <eps>  ;   <eps>   ;  <eps>   ;    <eps>   
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;        S         ;    I     ;    I    ;     I     ;    I     ;      I     
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;     'take'}|     ; {'type': ; 'road'| ; 'filler': ; 'kennedy ; airport'}]}
+================================================================================
+403c8f5b-99f9-32fd-9035-4edf98380717, %WER 66.67 [ 8 / 12, 0 ins, 4 del, 4 sub ]
+{'action': ;  'reminder'|  ; 'entities': ; [{'type': ;  'time'|  ; 'filler': ;  'on  ;  thursday ;   at  ; seven ; thirty ; pm'}]}
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;   S   ;     S     ;   D   ;   D   ;   D    ;   D   
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'turn ; right'}]} ; <eps> ; <eps> ; <eps>  ; <eps> 
+================================================================================
+4d9a7973-3f34-3f43-a37d-43d00f8329b60, %WER 100.00 [ 7 / 7, 6 ins, 0 del, 1 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]} ;  <eps>   ;  <eps>   ;  <eps>  ;   <eps>   ;   <eps>   ;   <eps>   
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;       S       ;    I     ;    I     ;    I    ;     I     ;     I     ;     I     
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;     'turn     ; right'}| ; {'type': ; 'road'| ; 'filler': ; 'brooklyn ; bridge'}]}
+================================================================================
+9a480fa2-e6fe-3db9-b0c2-61dd091073f3, %WER 69.23 [ 9 / 13, 0 ins, 4 del, 5 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'turn  ; left'}| ;  {'type': ; 'intent'| ; 'filler': ; 'turn ; left'}]}
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;   S    ;    S    ;     S     ;     D     ;     D     ;   D   ;    D    
+{'action': ;   'weather'|  ; 'entities': ; [{'type': ;  'city'|  ; 'filler': ; 'north ;   las   ; vegas'}]} ;   <eps>   ;   <eps>   ; <eps> ;  <eps>  
+================================================================================
+33e6ff8a-69a1-39a3-a222-53a238608f560, %WER 85.71 [ 6 / 7, 5 ins, 0 del, 1 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]} ;  <eps>   ;  <eps>  ;   <eps>   ;  <eps>   ;    <eps>   
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;       S       ;    I     ;    I    ;     I     ;    I     ;      I     
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;    'take'}|   ; {'type': ; 'road'| ; 'filler': ; 'kennedy ; airport'}]}
+================================================================================
+089a4542-17cf-3108-be73-ae60ef8be8bc, %WER 100.00 [ 7 / 7, 6 ins, 0 del, 1 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]} ;  <eps>   ;  <eps>  ;   <eps>   ; <eps> ; <eps> ;   <eps>  
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;       S       ;    I     ;    I    ;     I     ;   I   ;   I   ;     I    
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;    'take'}|   ; {'type': ; 'road'| ; 'filler': ;  'fdr ; drive ; north'}]}
+================================================================================
+93d350e8-0c99-3cc8-b647-e5e57690c5d7, %WER 73.33 [ 11 / 15, 0 ins, 7 del, 4 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'take ;    the    ;  next ; left'}| ; {'type': ; 'road'| ; 'filler': ; 'voigt ; drive'}]}
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;   S   ;     S     ;   D   ;    D    ;    D     ;    D    ;     D     ;   D    ;     D    
+{'action': ;   'weather'|  ; 'entities': ; [{'type': ;  'city'|  ; 'filler': ;  'san ; diego'}]} ; <eps> ;  <eps>  ;  <eps>   ;  <eps>  ;   <eps>   ; <eps>  ;   <eps>  
+================================================================================
+64097f73-d913-397b-bbc3-68d613a27b920, %WER 69.23 [ 9 / 13, 0 ins, 5 del, 4 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'turn ;  left'}|  ; {'type': ; 'road'| ; 'filler': ;  'ten ; avenue'}]}
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;   S   ;     S     ;    D     ;    D    ;     D     ;   D   ;     D     
+{'action': ;   'weather'|  ; 'entities': ; [{'type': ;  'city'|  ; 'filler': ;  'san ; diego'}]} ;  <eps>   ;  <eps>  ;   <eps>   ; <eps> ;   <eps>   
+================================================================================
+d9095ecb-b2d9-3a27-a55c-166affa8e878, %WER 50.00 [ 4 / 8, 0 ins, 0 del, 4 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'turn ; right'}]}
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;   S   ;     S    
+{'action': ;   'weather'|  ; 'entities': ; [{'type': ;  'city'|  ; 'filler': ;  'san ; diego'}]}
+================================================================================
+80893f4f-bbf8-3716-8d4f-d14dae15313f, %WER 122.22 [ 11 / 9, 6 ins, 0 del, 5 sub ]
+{'action': ;  'reminder'|  ; 'entities': ; [{'type': ;  'time'|  ; 'filler': ;   'at    ;   five   ;  pm'}]} ;   <eps>   ; <eps> ; <eps> ;     <eps>     ; <eps> ;  <eps>  
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;    S     ;    S     ;    S    ;     I     ;   I   ;   I   ;       I       ;   I   ;    I    
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'take'}| ; {'type': ; 'road'| ; 'filler': ;   'i  ;  two  ; seventy-eight ; south ; exit'}]}
+================================================================================
+5d21c40d-3adb-3369-ab5f-8a6232729e8f, %WER 128.57 [ 9 / 7, 6 ins, 0 del, 3 sub ]
+{'action': ;   'weather'|  ; 'entities': ; [{'type': ;  'city'|  ; 'filler': ; 'detroit'}]} ;  <eps>   ;  <eps>   ;  <eps>  ;   <eps>   ;   <eps>   ;   <eps>   
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;      S       ;    I     ;    I     ;    I    ;     I     ;     I     ;     I     
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;    'turn     ; right'}| ; {'type': ; 'road'| ; 'filler': ; 'brooklyn ; bridge'}]}
+================================================================================
+b1101782-92e9-345d-a9fa-1f043db733d2, %WER 100.00 [ 8 / 8, 6 ins, 0 del, 2 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;  'turn   ; left'}]} ;  <eps>  ;   <eps>   ; <eps> ; <eps> ;    <eps>    ;  <eps>  
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;    S     ;    S     ;    I    ;     I     ;   I   ;   I   ;      I      ;    I    
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'take'}| ; {'type': ; 'road'| ; 'filler': ;   'i  ;  four ; ninety-five ; west'}]}
+================================================================================
+8871b17d-ac41-38d5-9f7d-2e7020467f38, %WER 142.86 [ 10 / 7, 7 ins, 0 del, 3 sub ]
+{'action': ;  'reminder'|  ; 'entities': ; [{'type': ;  'time'|  ; 'filler': ; 'tomorrow'}]} ;  <eps>   ;  <eps>  ;   <eps>   ; <eps> ; <eps> ;     <eps>     ;  <eps>  
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;       S       ;    I     ;    I    ;     I     ;   I   ;   I   ;       I       ;    I    
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;    'take'}|   ; {'type': ; 'road'| ; 'filler': ;   'i  ;  two  ; seventy-eight ; west'}]}
+================================================================================
+0d60ff1f-9fa0-35e7-8416-658ad29531cc, %WER 71.43 [ 5 / 7, 3 ins, 0 del, 2 sub ]
+{'action': ; 'reminder'| ; 'entities': ; [{'type': ; 'time'| ; 'filler': ; 'tomorrow'}]} ;  <eps>  ; <eps> ;   <eps>  
+    =      ;      S      ;      =      ;     =     ;    =    ;     =     ;       S       ;    I    ;   I   ;     I    
+{'action': ;  'weather'| ; 'entities': ; [{'type': ; 'time'| ; 'filler': ;      'on      ; tuesday ;   at  ; seven'}]}
+================================================================================
+f9f4ec80-5059-39b3-b205-4b4da52b0588, %WER 100.00 [ 7 / 7, 6 ins, 0 del, 1 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]} ;  <eps>   ;  <eps>   ;  <eps>  ;   <eps>   ;   <eps>   ;   <eps>   
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;       S       ;    I     ;    I     ;    I    ;     I     ;     I     ;     I     
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;     'turn     ; right'}| ; {'type': ; 'road'| ; 'filler': ; 'brooklyn ; bridge'}]}
+================================================================================
+8520bce3-eee8-3227-b927-d561b22be749, %WER 60.00 [ 6 / 10, 0 ins, 2 del, 4 sub ]
+{'action': ;  'reminder'|  ; 'entities': ; [{'type': ;  'todo'|  ; 'filler': ;  'go  ;    over   ;   my  ; schedule'}]}
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;   S   ;     S     ;   D   ;      D      
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'turn ; right'}]} ; <eps> ;    <eps>    
+================================================================================
+ea9187f1-c412-3169-97f7-7b1c31a8e2600, %WER 38.46 [ 5 / 13, 1 ins, 1 del, 3 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;  'turn   ; right'}| ; {'type': ; 'road'| ; 'filler': ;   'fdr   ; drive'}]} ;  <eps>  
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;    S     ;    D     ;    =     ;    =    ;     =     ;    S     ;     S     ;    I    
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'take'}| ;  <eps>   ; {'type': ; 'road'| ; 'filler': ; 'kennedy ; boulevard ; exit'}]}
+================================================================================
+aaa50490-a353-3e4a-8463-92ad30bb1148, %WER 69.23 [ 9 / 13, 0 ins, 5 del, 4 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'turn ;  right'}| ; {'type': ; 'road'| ; 'filler': ; 'genesee ; avenue'}]}
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;   S   ;     S     ;    D     ;    D    ;     D     ;    D     ;     D     
+{'action': ;   'weather'|  ; 'entities': ; [{'type': ;  'city'|  ; 'filler': ;  'san ; diego'}]} ;  <eps>   ;  <eps>  ;   <eps>   ;  <eps>   ;   <eps>   
+================================================================================
+81be354e-795f-3c5b-ac04-1dfb84962d95, %WER 46.67 [ 7 / 15, 1 ins, 3 del, 3 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;  'take   ;  the  ;  next ; right'}| ; {'type': ; 'road'| ; 'filler': ; 'beagle  ; street'}]} ;  <eps>  
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;    S     ;   D   ;   D   ;    D     ;    =     ;    =    ;     =     ;    S     ;     S      ;    I    
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'take'}| ; <eps> ; <eps> ;  <eps>   ; {'type': ; 'road'| ; 'filler': ; 'kennedy ; boulevard  ; exit'}]}
+================================================================================
+eb1df1ac-34bf-3823-9ee3-6519a07e0e89, %WER 69.23 [ 9 / 13, 0 ins, 5 del, 4 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}| ;  {'type': ; 'road'| ; 'filler': ;   'i  ;  five ; east'}]}
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;      S       ;     S     ;    D    ;     D     ;   D   ;   D   ;    D    
+{'action': ;   'weather'|  ; 'entities': ; [{'type': ;  'city'|  ; 'filler': ;     'san     ; diego'}]} ;  <eps>  ;   <eps>   ; <eps> ; <eps> ;  <eps>  
+================================================================================
+b0a7ebcc-0ae8-3449-957a-b4de91bf46c1, %WER 142.86 [ 10 / 7, 7 ins, 0 del, 3 sub ]
+{'action': ;   'weather'|  ; 'entities': ; [{'type': ;  'city'|  ; 'filler': ; 'nashville'}]} ;  <eps>   ;  <eps>   ;  <eps>  ;   <eps>   ;  <eps>  ; <eps> ;   <eps>   
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;       S        ;    I     ;    I     ;    I    ;     I     ;    I    ;   I   ;     I     
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;     'turn      ; right'}| ; {'type': ; 'road'| ; 'filler': ; 'tunnel ;  exit ; street'}]}
+================================================================================
+5b9581a9-ce35-32e5-abf6-f09283df756c, %WER 100.00 [ 7 / 7, 6 ins, 0 del, 1 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]} ;  <eps>   ;  <eps>  ;   <eps>   ;  <eps>   ;   <eps>   ;  <eps>  
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;       S       ;    I     ;    I    ;     I     ;    I     ;     I     ;    I    
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;    'take'}|   ; {'type': ; 'road'| ; 'filler': ; 'kennedy ; boulevard ; exit'}]}
+================================================================================
+be69dbd1-866f-3dfa-b6d5-fc0f0c2479830, %WER 114.29 [ 8 / 7, 7 ins, 0 del, 1 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]} ;  <eps>   ;  <eps>   ;  <eps>  ;   <eps>   ; <eps>  ; <eps> ;    <eps>   
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;       S       ;    I     ;    I     ;    I    ;     I     ;   I    ;   I   ;      I     
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;     'turn     ; right'}| ; {'type': ; 'road'| ; 'filler': ; 'bronx ; river ; parkway'}]}
+================================================================================
+13ddb572-383b-30f6-907c-a9a9994f6300, %WER 57.14 [ 4 / 7, 1 ins, 0 del, 3 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]} ;   <eps>  
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;       S       ;     I    
+{'action': ;   'weather'|  ; 'entities': ; [{'type': ;  'city'|  ; 'filler': ;      'san     ; diego'}]}
+================================================================================
+fa78c6e0-657f-303d-aac7-8d0b8cb793ef, %WER 100.00 [ 7 / 7, 6 ins, 0 del, 1 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]} ;  <eps>   ;  <eps>  ;   <eps>   ; <eps> ; <eps> ;   <eps>  
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;       S       ;    I     ;    I    ;     I     ;   I   ;   I   ;     I    
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;    'take'}|   ; {'type': ; 'road'| ; 'filler': ;  'fdr ; drive ; north'}]}
+================================================================================
+e9f884a2-260a-31ee-a598-68c67a72737b, %WER 87.50 [ 7 / 8, 5 ins, 0 del, 2 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;  'turn   ; right'}]} ;  <eps>  ;   <eps>   ;  <eps>   ;   <eps>   ;  <eps>  
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;    S     ;     S     ;    I    ;     I     ;    I     ;     I     ;    I    
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'take'}| ;  {'type': ; 'road'| ; 'filler': ; 'kennedy ; boulevard ; exit'}]}
+================================================================================
+3d154819-d437-30b1-8803-304655aee76e, %WER 38.46 [ 5 / 13, 1 ins, 1 del, 3 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;  'turn   ; left'}| ; {'type': ; 'road'| ; 'filler': ; 'beryl ; street'}]} ;   <eps>  
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;    S     ;    D    ;    =     ;    =    ;     =     ;   S    ;     S      ;     I    
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'take'}| ;  <eps>  ; {'type': ; 'road'| ; 'filler': ;  'fdr  ;   drive    ; north'}]}
+================================================================================
+3496b616-3273-3e70-a23d-4e7dca9a3498, %WER 100.00 [ 7 / 7, 6 ins, 0 del, 1 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]} ;  <eps>   ;  <eps>  ;   <eps>   ; <eps> ; <eps> ;   <eps>  
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;       S       ;    I     ;    I    ;     I     ;   I   ;   I   ;     I    
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;    'take'}|   ; {'type': ; 'road'| ; 'filler': ;  'fdr ; drive ; north'}]}
+================================================================================
+2beeebc6-9d67-3ac3-91f2-2b8e3132beac, %WER 114.29 [ 8 / 7, 5 ins, 0 del, 3 sub ]
+{'action': ;   'weather'|  ; 'entities': ; [{'type': ;  'city'|  ; 'filler': ; 'madison'}]} ;  <eps>   ;  <eps>  ;   <eps>   ;  <eps>   ;    <eps>   
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;      S       ;    I     ;    I    ;     I     ;    I     ;      I     
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;   'take'}|   ; {'type': ; 'road'| ; 'filler': ; 'kennedy ; airport'}]}
+================================================================================
+ccdc9041-3ee0-3eb4-a0dd-e4d295861807, %WER 38.46 [ 5 / 13, 1 ins, 1 del, 3 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;  'turn   ; left'}| ; {'type': ; 'road'| ; 'filler': ; 'regents ;  road'}]} ;  <eps>  
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;    S     ;    D    ;    =     ;    =    ;     =     ;    S     ;     S     ;    I    
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'take'}| ;  <eps>  ; {'type': ; 'road'| ; 'filler': ; 'kennedy ; boulevard ; exit'}]}
+================================================================================
+a6c64379-b180-3691-8b85-b5a91219d15d0, %WER 114.29 [ 8 / 7, 7 ins, 0 del, 1 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]} ;  <eps>   ;  <eps>   ;  <eps>  ;   <eps>   ; <eps>  ; <eps> ;    <eps>   
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;       S       ;    I     ;    I     ;    I    ;     I     ;   I    ;   I   ;      I     
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;     'turn     ; right'}| ; {'type': ; 'road'| ; 'filler': ; 'bronx ; river ; parkway'}]}
+================================================================================
+9aa35b59-8a18-396e-8578-545a2e64292d, %WER 42.86 [ 3 / 7, 0 ins, 0 del, 3 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]}
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;       S      
+{'action': ;   'weather'|  ; 'entities': ; [{'type': ;  'city'|  ; 'filler': ;  'chicago'}]}
+================================================================================
+7a5712a7-6955-3827-b50a-48ea1581dac9, %WER 28.57 [ 2 / 7, 1 ins, 0 del, 1 sub ]
+{'action': ; 'weather'| ; 'entities': ; [{'type': ; 'city'| ; 'filler': ; 'irvine'}]} ;   <eps>  
+    =      ;     =      ;      =      ;     =     ;    =    ;     =     ;      S      ;     I    
+{'action': ; 'weather'| ; 'entities': ; [{'type': ; 'city'| ; 'filler': ;    'chula   ; vista'}]}
+================================================================================
+86696da3-f59a-35da-a581-8579d6c5d3a9, %WER 28.57 [ 2 / 7, 1 ins, 0 del, 1 sub ]
+{'action': ; 'weather'| ; 'entities': ; [{'type': ; 'city'| ; 'filler': ; 'fresno'}]} ;   <eps>  
+    =      ;     =      ;      =      ;     =     ;    =    ;     =     ;      S      ;     I    
+{'action': ; 'weather'| ; 'entities': ; [{'type': ; 'city'| ; 'filler': ;     'san    ; diego'}]}
+================================================================================
+8e3789b8-434f-3a12-a27b-5086c791c5e90, %WER 114.29 [ 8 / 7, 7 ins, 0 del, 1 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]} ;  <eps>   ;  <eps>  ;   <eps>   ; <eps> ; <eps> ;     <eps>     ;  <eps>  
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;       S       ;    I     ;    I    ;     I     ;   I   ;   I   ;       I       ;    I    
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;    'take'}|   ; {'type': ; 'road'| ; 'filler': ;   'i  ;  two  ; seventy-eight ; west'}]}
+================================================================================
+ac257347-73ce-3145-ab2e-797dc6633f65, %WER 50.00 [ 4 / 8, 0 ins, 0 del, 4 sub ]
+{'action': ;  'reminder'|  ; 'entities': ; [{'type': ;  'time'|  ; 'filler': ;  'on  ; wednesday'}]}
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;   S   ;       S      
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'turn ;   right'}]}  
+================================================================================
+61f927ba-4079-31b4-bae0-0ee7b5b0527a0, %WER 42.86 [ 3 / 7, 0 ins, 0 del, 3 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]}
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;       S      
+{'action': ;     'sun'|    ; 'entities': ; [{'type': ;  'city'|  ; 'filler': ;  'irving'}]} 
+================================================================================
+0225d015-e6ab-3231-98fd-8398f9a51be0, %WER 100.00 [ 8 / 8, 4 ins, 0 del, 4 sub ]
+{'action': ;  'reminder'|  ; 'entities': ; [{'type': ;  'time'|  ; 'filler': ;   'at    ; eight'}]} ;  <eps>  ;   <eps>   ;  <eps>   ;    <eps>   
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;    S     ;     S     ;    I    ;     I     ;    I     ;      I     
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'take'}| ;  {'type': ; 'road'| ; 'filler': ; 'kennedy ; airport'}]}
+================================================================================
+0839425d-d1a3-3e74-95a7-4f6d061bf476, %WER 15.38 [ 2 / 13, 0 ins, 0 del, 2 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'turn ; right'}| ; {'type': ; 'road'| ; 'filler': ;  'genesee ; avenue'}]}
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;   =   ;    =     ;    =     ;    =    ;     =     ;     S     ;     S     
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'turn ; right'}| ; {'type': ; 'road'| ; 'filler': ; 'brooklyn ; bridge'}]}
+================================================================================
+1d88affa-27dc-39ef-8ffc-b8789ab8f5d0, %WER 100.00 [ 7 / 7, 6 ins, 0 del, 1 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]} ;  <eps>   ;  <eps>   ;  <eps>  ;   <eps>   ; <eps>  ;   <eps>   
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;       S       ;    I     ;    I     ;    I    ;     I     ;   I    ;     I     
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;     'turn     ; right'}| ; {'type': ; 'road'| ; 'filler': ; 'brook ; avenue'}]}
+================================================================================
+2cc421d1-f36a-3a3f-96bb-9a6f9e291df2, %WER 125.00 [ 10 / 8, 6 ins, 0 del, 4 sub ]
+{'action': ;  'reminder'|  ; 'entities': ; [{'type': ;  'time'|  ; 'filler': ;  'at  ; three'}]} ;  <eps>   ;  <eps>  ;   <eps>   ;   <eps>   ; <eps>  ;     <eps>     
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;   S   ;     S     ;    I     ;    I    ;     I     ;     I     ;   I    ;       I       
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'turn ;  right'}| ; {'type': ; 'road'| ; 'filler': ; 'brooklyn ; queens ; expressway'}]}
+================================================================================
+7c0338b1-5d0a-38d9-b73c-8469f16e9f08, %WER 100.00 [ 7 / 7, 6 ins, 0 del, 1 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]} ;  <eps>   ;  <eps>   ;   <eps>   ;   <eps>   ; <eps> ;   <eps>  
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;       S       ;    I     ;    I     ;     I     ;     I     ;   I   ;     I    
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;     'keep     ; right'}| ; {'type': ; 'intent'| ; 'filler': ; 'turn ; right'}]}
+================================================================================
+bc6e3edb-96c8-3340-8eda-faa5a559ee77, %WER 100.00 [ 7 / 7, 6 ins, 0 del, 1 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]} ;  <eps>   ;  <eps>   ;  <eps>  ;   <eps>   ;   <eps>   ;   <eps>   
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;       S       ;    I     ;    I     ;    I    ;     I     ;     I     ;     I     
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;     'turn     ; right'}| ; {'type': ; 'road'| ; 'filler': ; 'brooklyn ; bridge'}]}
+================================================================================
+b8134021-15f8-3dfa-a406-450fb9810b85, %WER 87.50 [ 7 / 8, 6 ins, 0 del, 1 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'turn ; right'}]} ;  <eps>   ;  <eps>  ;   <eps>   ;   <eps>   ; <eps>  ;     <eps>     
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;   =   ;     S     ;    I     ;    I    ;     I     ;     I     ;   I    ;       I       
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'turn ;  right'}| ; {'type': ; 'road'| ; 'filler': ; 'brooklyn ; queens ; expressway'}]}
+================================================================================
+bda677cc-a505-3836-beab-f27520bdf609, %WER 30.77 [ 4 / 13, 0 ins, 1 del, 3 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;  'turn   ; right'}| ; {'type': ; 'road'| ; 'filler': ; 'miramar ;   road'}]} 
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;    S     ;    D     ;    =     ;    =    ;     =     ;    S     ;      S     
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'take'}| ;  <eps>   ; {'type': ; 'road'| ; 'filler': ; 'kennedy ; airport'}]}
+================================================================================
+3edda340-f446-3a88-b469-4b944a1490a8, %WER 23.08 [ 3 / 13, 1 ins, 0 del, 2 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'turn ; right'}| ; {'type': ; 'road'| ; 'filler': ; 'genesee ; avenue'}]} ;    <eps>   
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;   =   ;    =     ;    =     ;    =    ;     =     ;    S     ;     S      ;      I     
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'turn ; right'}| ; {'type': ; 'road'| ; 'filler': ;  'bronx  ;   river    ; parkway'}]}
+================================================================================
+05e2aa81-aea5-37f6-b830-362569c29547, %WER 46.15 [ 6 / 13, 2 ins, 1 del, 3 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;  'turn   ; right'}| ; {'type': ; 'road'| ; 'filler': ; 'conrad ; avenue'}]} ;    <eps>    ;  <eps>  
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;    S     ;    D     ;    =     ;    =    ;     =     ;    S    ;     S      ;      I      ;    I    
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'take'}| ;  <eps>   ; {'type': ; 'road'| ; 'filler': ;    'i   ;    four    ; ninety-five ; east'}]}
+================================================================================
+05f344db-e6da-3d5c-8ad9-461f63824042, %WER 57.14 [ 4 / 7, 1 ins, 0 del, 3 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]} ;   <eps>  
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;       S       ;     I    
+{'action': ;   'weather'|  ; 'entities': ; [{'type': ;  'city'|  ; 'filler': ;      'san     ; diego'}]}
+================================================================================
+ff700be1-da8f-3cfd-a0b1-82bdf4fc8eaa, %WER 38.46 [ 5 / 13, 1 ins, 1 del, 3 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;  'turn   ; right'}| ; {'type': ; 'road'| ; 'filler': ; 'genesee ; avenue'}]} ;   <eps>  
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;    S     ;    D     ;    =     ;    =    ;     =     ;    S     ;     S      ;     I    
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'take'}| ;  <eps>   ; {'type': ; 'road'| ; 'filler': ;   'fdr   ;   drive    ; north'}]}
+================================================================================
+6e3e1a24-526f-3d52-8bb4-a9694eaf868b, %WER 57.14 [ 4 / 7, 1 ins, 0 del, 3 sub ]
+{'action': ; 'reminder'| ; 'entities': ; [{'type': ; 'time'| ; 'filler': ; 'tomorrow'}]} ;   <eps>  
+    =      ;      S      ;      =      ;     =     ;    S    ;     =     ;       S       ;     I    
+{'action': ;  'weather'| ; 'entities': ; [{'type': ; 'city'| ; 'filler': ;      'san     ; diego'}]}
+================================================================================
+28374b77-ee1d-3948-a1ab-a5fd32caa8ed, %WER 30.77 [ 4 / 13, 0 ins, 0 del, 4 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'turn ; right'}| ; {'type': ;  'road'|  ; 'filler': ; 'miramar ;  road'}]}
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;   S   ;    =     ;    =     ;     S     ;     =     ;    S     ;     S    
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'keep ; right'}| ; {'type': ; 'intent'| ; 'filler': ;  'turn   ; right'}]}
+================================================================================
+52472587-eb2e-30e5-a7dd-3b0929dcd8f9, %WER 23.08 [ 3 / 13, 1 ins, 0 del, 2 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'turn ; right'}| ; {'type': ; 'road'| ; 'filler': ;  'convoy  ; street'}]} ;     <eps>     
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;   =   ;    =     ;    =     ;    =    ;     =     ;     S     ;     S      ;       I       
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'turn ; right'}| ; {'type': ; 'road'| ; 'filler': ; 'brooklyn ;   queens   ; expressway'}]}
+================================================================================
+6d95a25a-9291-316e-9eb2-1c8e76ff6608, %WER 66.67 [ 8 / 12, 0 ins, 4 del, 4 sub ]
+{'action': ;  'reminder'|  ; 'entities': ; [{'type': ;  'todo'|  ; 'filler': ; 'make ;    sure   ;   i   ;  have ;  the  ; tickets'}]}
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;   S   ;     S     ;   D   ;   D   ;   D   ;      D     
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'turn ; right'}]} ; <eps> ; <eps> ; <eps> ;    <eps>   
+================================================================================
+eacd332f-6218-3764-baa3-d6445205ab69, %WER 128.57 [ 9 / 7, 6 ins, 0 del, 3 sub ]
+{'action': ;   'weather'|  ; 'entities': ; [{'type': ;  'city'|  ; 'filler': ; 'pittsburgh'}]} ;  <eps>   ;  <eps>   ;  <eps>  ;   <eps>   ;   <eps>   ;   <eps>   
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;        S        ;    I     ;    I     ;    I    ;     I     ;     I     ;     I     
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;      'turn      ; right'}| ; {'type': ; 'road'| ; 'filler': ; 'brooklyn ; bridge'}]}
+================================================================================
+59a057de-1036-3061-97e7-8df410250248, %WER 100.00 [ 7 / 7, 6 ins, 0 del, 1 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]} ;  <eps>   ;  <eps>   ;  <eps>  ;   <eps>   ;   <eps>   ;   <eps>   
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;       S       ;    I     ;    I     ;    I    ;     I     ;     I     ;     I     
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;     'turn     ; right'}| ; {'type': ; 'road'| ; 'filler': ; 'brooklyn ; bridge'}]}
+================================================================================
+50d0b436-baa6-31a0-a56f-45ba16fa9696, %WER 114.29 [ 8 / 7, 7 ins, 0 del, 1 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]} ;  <eps>   ;  <eps>  ;   <eps>   ; <eps> ; <eps> ;     <eps>     ;  <eps>  
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;       S       ;    I     ;    I    ;     I     ;   I   ;   I   ;       I       ;    I    
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;    'take'}|   ; {'type': ; 'road'| ; 'filler': ;   'i  ;  two  ; seventy-eight ; west'}]}
+================================================================================
+44e4333d-a7e9-395c-b655-9661ad7ac5ce, %WER 85.71 [ 6 / 7, 5 ins, 0 del, 1 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]} ;  <eps>   ;  <eps>  ;   <eps>   ;  <eps>   ;    <eps>   
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;       S       ;    I     ;    I    ;     I     ;    I     ;      I     
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;    'take'}|   ; {'type': ; 'road'| ; 'filler': ; 'kennedy ; airport'}]}
+================================================================================
+ecd582c7-524e-3b1a-89fa-326c77e6f9b00, %WER 75.00 [ 6 / 8, 5 ins, 0 del, 1 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'turn ; right'}]} ;  <eps>   ;  <eps>  ;   <eps>   ;   <eps>   ;   <eps>   
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;   =   ;     S     ;    I     ;    I    ;     I     ;     I     ;     I     
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'turn ;  right'}| ; {'type': ; 'road'| ; 'filler': ; 'brooklyn ; bridge'}]}
+================================================================================
+9811b0e7-6655-340d-84a7-f67097e6ebfd, %WER 142.86 [ 10 / 7, 7 ins, 0 del, 3 sub ]
+{'action': ;   'weather'|  ; 'entities': ; [{'type': ;  'city'|  ; 'filler': ; 'chicago'}]} ;  <eps>   ;  <eps>   ;  <eps>  ;   <eps>   ; <eps>  ; <eps> ;    <eps>   
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;      S       ;    I     ;    I     ;    I    ;     I     ;   I    ;   I   ;      I     
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;    'turn     ; right'}| ; {'type': ; 'road'| ; 'filler': ; 'bronx ; river ; parkway'}]}
+================================================================================
+cca56d74-c6c6-3d70-bddb-34455f02c4450, %WER 57.14 [ 4 / 7, 1 ins, 0 del, 3 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]} ;   <eps>  
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;       S       ;     I    
+{'action': ;   'weather'|  ; 'entities': ; [{'type': ;  'city'|  ; 'filler': ;      'san     ; diego'}]}
+================================================================================
+fd16806c-981a-3554-99ed-ac1d932ce486, %WER 100.00 [ 8 / 8, 6 ins, 0 del, 2 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;  'turn   ; right'}]} ;  <eps>  ;   <eps>   ; <eps> ; <eps> ;    <eps>    ;  <eps>  
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;    S     ;     S     ;    I    ;     I     ;   I   ;   I   ;      I      ;    I    
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'take'}| ;  {'type': ; 'road'| ; 'filler': ;   'i  ;  four ; ninety-five ; east'}]}
+================================================================================
+b6457502-f0e6-3208-9604-b6fdc69d402f, %WER 114.29 [ 8 / 7, 7 ins, 0 del, 1 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]} ;  <eps>   ;  <eps>   ;  <eps>  ;   <eps>   ;   <eps>   ; <eps>  ;     <eps>     
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;       S       ;    I     ;    I     ;    I    ;     I     ;     I     ;   I    ;       I       
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;     'turn     ; right'}| ; {'type': ; 'road'| ; 'filler': ; 'brooklyn ; queens ; expressway'}]}
+================================================================================
+eb0310f8-f893-32b4-879e-350eec2f7c670, %WER 114.29 [ 8 / 7, 7 ins, 0 del, 1 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'destination'}]} ;  <eps>   ;  <eps>   ;  <eps>  ;   <eps>   ;   <eps>   ; <eps>  ;     <eps>     
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;        S         ;    I     ;    I     ;    I    ;     I     ;     I     ;   I    ;       I       
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;      'turn       ; right'}| ; {'type': ; 'road'| ; 'filler': ; 'brooklyn ; queens ; expressway'}]}
+================================================================================
+dc818f2b-ca8e-399d-b2e7-b075050020050, %WER 69.23 [ 9 / 13, 0 ins, 6 del, 3 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;    'turn     ; right'}| ; {'type': ; 'road'| ; 'filler': ; 'review ; avenue'}]}
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;      S       ;    D     ;    D     ;    D    ;     D     ;    D    ;     D     
+{'action': ;   'weather'|  ; 'entities': ; [{'type': ;  'city'|  ; 'filler': ; 'memphis'}]} ;  <eps>   ;  <eps>   ;  <eps>  ;   <eps>   ;  <eps>  ;   <eps>   
+================================================================================
+e537426a-0116-3e3b-acdf-9451d6e481df, %WER 28.57 [ 2 / 7, 1 ins, 0 del, 1 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'destination'}]} ;  <eps>  
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;        S         ;    I    
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;      'turn       ; left'}]}
+================================================================================
+8f086890-f5d0-3fa0-b4e0-45a577d9400e, %WER 63.64 [ 7 / 11, 0 ins, 3 del, 4 sub ]
+{'action': ;  'reminder'|  ; 'entities': ; [{'type': ;  'time'|  ; 'filler': ;  'on  ;  saturday ;   at  ;  five ; pm'}]}
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;   S   ;     S     ;   D   ;   D   ;   D   
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'turn ; right'}]} ; <eps> ; <eps> ; <eps> 
+================================================================================
+afd62ace-5c2e-31d4-b7e6-9742d5114c5c, %WER 128.57 [ 9 / 7, 6 ins, 0 del, 3 sub ]
+{'action': ;  'reminder'|  ; 'entities': ; [{'type': ;  'time'|  ; 'filler': ; 'tomorrow'}]} ;  <eps>   ;  <eps>  ;   <eps>   ; <eps> ; <eps> ;   <eps>  
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;       S       ;    I     ;    I    ;     I     ;   I   ;   I   ;     I    
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;    'take'}|   ; {'type': ; 'road'| ; 'filler': ;  'fdr ; drive ; north'}]}
+================================================================================
+76e66bf3-39e8-3fe9-886a-7d6253e5a668, %WER 57.14 [ 4 / 7, 1 ins, 0 del, 3 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]} ;   <eps>  
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;       S       ;     I    
+{'action': ;   'weather'|  ; 'entities': ; [{'type': ;  'city'|  ; 'filler': ;      'san     ; diego'}]}
+================================================================================
+9c6114e6-b295-365e-a10a-2277cccf0be7, %WER 90.91 [ 10 / 11, 3 ins, 0 del, 7 sub ]
+{'action': ;  'reminder'|  ; 'entities': ; [{'type': ;  'time'|  ; 'filler': ; 'tomorrow ; morning  ;    at    ;  eight  ;   am'}]}  ;  <eps>   ; <eps> ;     <eps>    
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;     S     ;    S     ;    S     ;    S    ;     S     ;    I     ;   I   ;       I      
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;   'turn   ; right'}| ; {'type': ; 'road'| ; 'filler': ; 'scripps ; ranch ; boulevard'}]}
+================================================================================
+19fb63b2-62e4-39b1-9a04-e3f7cff3f4ce, %WER 71.43 [ 10 / 14, 0 ins, 6 del, 4 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'turn ;  left'}|  ; {'type': ; 'road'| ; 'filler': ; 'black ; mountain ; road'}]}
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;   S   ;     S     ;    D     ;    D    ;     D     ;   D    ;    D     ;    D    
+{'action': ;   'weather'|  ; 'entities': ; [{'type': ;  'city'|  ; 'filler': ;  'san ; diego'}]} ;  <eps>   ;  <eps>  ;   <eps>   ; <eps>  ;  <eps>   ;  <eps>  
+================================================================================
+414824c3-fbd4-3666-9ca6-6d3abef805fc, %WER 50.00 [ 4 / 8, 0 ins, 0 del, 4 sub ]
+{'action': ;  'reminder'|  ; 'entities': ; [{'type': ;  'time'|  ; 'filler': ;  'at  ;  five'}]}
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;   S   ;     S    
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'turn ; right'}]}
+================================================================================
+fb6d2883-5a7d-3865-8fd1-d1d424b05a05, %WER 114.29 [ 8 / 7, 7 ins, 0 del, 1 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]} ;  <eps>   ;  <eps>   ;  <eps>  ;   <eps>   ;   <eps>   ; <eps>  ;     <eps>     
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;       S       ;    I     ;    I     ;    I    ;     I     ;     I     ;   I    ;       I       
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;     'turn     ; right'}| ; {'type': ; 'road'| ; 'filler': ; 'brooklyn ; queens ; expressway'}]}
+================================================================================
+9e83537e-226c-3f5c-bff9-2f63b5bc608c0, %WER 23.08 [ 3 / 13, 0 ins, 0 del, 3 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'turn ; left'}|  ; {'type': ; 'road'| ; 'filler': ;  'eleven  ; avenue'}]}
+    =      ;       =       ;      =      ;     =     ;     =     ;     =     ;   =   ;    S     ;    =     ;    =    ;     =     ;     S     ;     S     
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'turn ; right'}| ; {'type': ; 'road'| ; 'filler': ; 'brooklyn ; bridge'}]}
+================================================================================
+57a52b91-8120-362f-99fb-e4aba2667476, %WER 128.57 [ 9 / 7, 6 ins, 0 del, 3 sub ]
+{'action': ;  'reminder'|  ; 'entities': ; [{'type': ;  'time'|  ; 'filler': ; 'tomorrow'}]} ;  <eps>   ;  <eps>  ;   <eps>   ;  <eps>   ;   <eps>   ;  <eps>  
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;       S       ;    I     ;    I    ;     I     ;    I     ;     I     ;    I    
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ;    'take'}|   ; {'type': ; 'road'| ; 'filler': ; 'kennedy ; boulevard ; exit'}]}
