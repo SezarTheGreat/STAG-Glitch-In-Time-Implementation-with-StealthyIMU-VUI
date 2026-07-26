@@ -137,7 +137,7 @@ def main():
     best_overall_mse, best_overall_r2 = results[best_overall_name]
     
     # Write paper cited model upscaling.md
-    report_path = "projects/paper_based_reconstruction_with_other_models/paper cited model upscaling.md"
+    report_path = "day_07_08_alternate_models_and_interpolation/paper cited model upscaling.md"
     print(f"\nWriting evaluation report to {report_path}...")
     
     with open(report_path, "w") as f:
@@ -186,7 +186,7 @@ The side-by-side reconstruction fidelity benchmarks on the test set are summariz
 ## 3. How to Reproduce Benchmarks
 To run the training and inference benchmark pipeline:
 ```powershell
-python projects/paper_based_reconstruction_with_other_models/evaluate.py
+python day_07_08_alternate_models_and_interpolation/evaluate.py
 ```
 """)
     print("[SUCCESS] paper cited model upscaling.md generated successfully.")
