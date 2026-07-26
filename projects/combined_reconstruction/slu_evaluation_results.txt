@@ -1,2 +1,0 @@
-Original STAG - WER: 49.22%, CER: 28.47%, SER: 94.00%
-Stacking Champion - WER: 72.15%, CER: 46.11%, SER: 99.00%

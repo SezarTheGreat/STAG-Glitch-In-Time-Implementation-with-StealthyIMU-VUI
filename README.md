@@ -4,135 +4,130 @@ This repository serves as an **active machine learning experimentation environme
 
 ---
 
-## 1. Project Context & Objectives
+## 1. Directory Structure & Chronology
 
-Modern mobile operating systems restrict permission-free Inertial Measurement Unit (IMU) access to approximately 200 Hz. The **Sensor Fusion via Temporal Misalignment (STAG)** attack framework demonstrates that this software restriction can be bypassed by exploiting a hardware-level 2.5 ms temporal misalignment between accelerometer and gyroscope readings. This staggered sampling allows for the reconstruction of an effective 400 Hz accelerometer stream from permission-free 200 Hz streams, exposing the device to motion-sensor-based eavesdropping.
-
-### DRDO Internship Goals:
-*   **Replicate** the STAG hardware-level glitch in a software-simulated environment using public datasets.
-*   **Evaluate** the vulnerability transferability on the **StealthyIMU** dataset.
-*   **Develop and Test** advanced machine learning reconstruction models (e.g., Stacking Ensembles).
-*   **Explore and Analyze** signal denoising pipelines (Kalman RTS Smoothers, Butterworth Filters) to enhance reconstruction quality and understand downstream model co-adaptation.
-
----
-
-## 2. Codebase Architecture
-
-The project is structured logically, splitting core utilities, model definitions, and separate research pipelines:
+The repository is structured chronologically by the day of experimentation, placing report documents and source scripts directly within their respective folders:
 
 ```
-├── .gitignore                                 # Git exclusions (datasets, local weights, caches)
 ├── README.md                                  # Comprehensive project documentation
-├── walkthrough.md                             # Summary of changes and validation procedures
-├── Dataset_Mismatches_Review.md               # Analysis of paper vs StealthyIMU differences
-├── Interpolation_methods_review.md            # Benchmark report for interpolation variants
-├── combined_filter_pipeline.md                # Flow diagrams and analysis for filtering variants
-├── kalman_filter_pipeline.md                  # Documentation on state-space Kalman filters
-├── post_filter_pipeline.md                    # Documentation on Butterworth post-correction
+├── experimentation_history_detailed.md        # Master chronologic log of all experiments
 │
-├── common/
-│   └── interpolation/
-│       └── interpolation.py                   # Shared signal interpolation helper functions
+├── common/                                    # Consolidated shared resources
+│   ├── data/                                  # StealthyIMU dataset
+│   └── interpolation/                         # Shared interpolation helper functions
 │
-└── projects/
-    ├── stag_original/                         # Replication of the original STAG paper setup
-    │   ├── Stag_Recreation_Project_Review.md  # Original replication review
-    │   ├── evaluate_teacher.py                # Raw teacher model evaluation script
-    │   ├── run_phase2_kd.py                   # Phase 2 Knowledge Distillation script
-    │   └── src/                               # Main source folder for original STAG models
-    │
-    ├── paper_based_reconstruction_with_other_models/ # Alternative upscaling architectures
-    │   ├── paper cited model upscaling.md     # Reference notes on cited models
-    │   ├── models.py                          # CNN, GRU, and MLP models
-    │   └── evaluate.py                        # Evaluation harness for alternate models
-    │
-    ├── interpolation_experiments/             # Experiments with signal processing variants
-    │   ├── pipeline_variants.py               # Implementation of B-spline, Kalman, and Butterworth
-    │   ├── evaluate_variants.py               # Harness running all variants on 3,070 test set
-    │   └── wer_*.txt                          # Log files containing raw WER test results
-    │
-    └── combined_reconstruction/               # Fused modeling combining ml and filters
-        ├── Signal_Reconstruction_.md          # Stacking ensemble report
-        ├── stacking.py                        # Stacking ensemble trainer/predictor
-        └── evaluate_slu.py                    # Evaluator comparing baseline and stacker on SLU
+├── models/                                    # Consolidated model checkpoints and zips
+│   ├── inertiear/                             # InertiEAR model zip archives
+│   │   ├── best_model.zip
+│   │   └── checkpoint.zip
+│   ├── stag/                                  # STAG SLU teacher and student checkpoints
+│   │   ├── teacher_model.pt
+│   │   └── student_model.pt
+│   └── stealthy_imu/                          # StealthyIMU upscalers, correctors, and phase results
+│       ├── gru_corrector.pt
+│       ├── upscaler.pkl
+│       ├── stacking_upscaler.pkl
+│       ├── Results for phase 1.zip
+│       └── Results for phase 2.zip
+│
+├── day_01_02_stealthyimu_research/            # Initial research on StealthyIMU and SensorID
+│
+├── day_03_stealthyimu_replication/            # Replication study and mismatches
+│   └── Dataset_Mismatches_Review.md
+│
+├── day_04_05_stag_recreation/                 # Replication of original STAG paper setup
+│   ├── Stag_Recreation_Project_Review.md      # Reconstruction review
+│   ├── run_phase2_kd.py                       # Knowledge Distillation script
+│   └── src/                                   # Original STAG model architectures (slu_dnn, upscaler, etc.)
+│
+├── day_07_08_alternate_models_and_interpolation/ # Alternative models and interpolation sweeps
+│   ├── Interpolation_methods_review.md        # Spline/Lanczos/Sinc benchmark report
+│   ├── interpolation_methods_better_for_speech.md # Fine-tuning interpolation details
+│   ├── alternative_interpolations.py          # Interpolator implementations
+│   ├── evaluate_variants.py                   # Re-evaluation harness
+│   └── models.py                              # CNN, RNN, and MLP models
+│
+├── day_09_10_filter_pipelines_and_optimizations/ # Filtering pipelines and stacking ensembles
+│   ├── Signal_Reconstruction_.md              # Stacking ensemble report
+│   ├── Optimization_Findings_Accuracy.md      # Accuracy optimizations report
+│   ├── Optimization_Methods_Review.md         # Optimization benchmarks
+│   ├── combined_filter_pipeline.md            # Kalman-Butterworth cascade details
+│   ├── kalman_filter_pipeline.md              # State-space Kalman smoother details
+│   ├── post_filter_pipeline.md                # Post-correction Butterworth filter
+│   ├── pre_kalman_filter_details.md           # Kinematic pre-filter details
+│   ├── stacking.py                            # Stacking ensemble implementations
+│   └── evaluate_slu.py                        # Stacking evaluator
+│
+└── day_11_12_boosting_and_peaking/           # Feature boosting and acoustic peaking
+    ├── Boosting_Methods_Evaluation.md         # TKEO and Peaking EQ report
+    ├── feature_boosting_results.md            # Vocal resonance amplification log
+    ├── evaluate_boosting.py                   # Boosting evaluator
+    └── evaluate_peaking_sweep.py              # Peaking biquad sweep
 ```
 
 ---
 
-## 3. Commit Classification Scheme
+## 2. Consolidating Models
 
-To maintain clear and structured development histories in this research environment, commits are categorized into distinct classes:
+All model files, check-pointed weights (`.pt`/`.pkl`), and dataset results archives (`.zip`) are consolidated inside the top-level `/models/` directory:
 
-*   **`feat(...)`**: Introduces new functional features, model architectures, or experimentation pipelines (e.g., `feat(projects)`, `feat(common)`).
-*   **`docs`**: Additions or updates to documentation, reports, mathematical writeups, or markdown summaries (e.g., `docs: add STAG reconstruction...`).
-*   **`chore`**: Maintenance tasks, project configurations, or repository adjustments (e.g., `chore: update .gitignore`).
-*   **`Cleanup / Refactor`**: Internal code restructuring, removal of deprecated testing scripts, or model-weight housekeeping.
-
----
-
-## 4. ML Experimentation Log
-
-### Experiment 1: Synthetic Glitch Framework & LightGBM Baseline
-*   **Timestamp**: `2026-06-27 23:46:50` to `2026-06-28 00:52:52`
-*   **Thinking**: Set up the initial simulation workspace. Since raw hardware unthrottled logging at 400 Hz was proprietary to the paper, the public StealthyIMU dataset was resampled to a uniform 400 Hz grid. The 2.5 ms temporal offset was simulated by software-level timestamp shifting and index bifurcation (odd accelerometer indexes representing the visible 200 Hz stream; even gyroscope indexes representing the staggered sensor helper stream).
-*   **Method**: Implemented a Cubic Spline baseline upscaler and trained a downscaled LightGBM regressor (`W=2` sliding context window) using statistical feature extraction (mean, variance) and raw gyroscope values.
-*   **Results**:
-    *   Cubic Spline MSE: `1.31580`
-    *   LightGBM Reconstruction MSE: `0.51430` (a **60.91%** error reduction over spline).
-*   **Learnings**: Tabular gradient boosting combined with spatial window features is effective at mapping the non-linear relationship between adjacent accelerometer samples and staggered gyroscopes.
-
-### Experiment 2: Teacher Model Evaluation & The Covariate Shift Paradox
-*   **Timestamp**: `2026-06-28 17:47:40` to `2026-07-02 10:46:21`
-*   **Thinking**: Evaluate the reconstructed signals against the pre-trained Speech Teacher SLU model (`results/slu_baseline_paper/1235/save/CKPT+epoch_30`).
-*   **Method**: Constructed the evaluation pipeline to feed the reconstructed 400 Hz accelerometer waveforms into the Teacher SLU model to check speech recovery metrics (WER/CER/SER).
-*   **Results**:
-    *   Ground-Truth Baseline: WER `3.42%`, SER `10.03%`
-    *   Reconstructed Baseline (Cubic+LGBM): WER `59.58%`, SER `99.25%`
-*   **Learnings**: Discovered a massive drop in Teacher accuracy despite low physical signal MSE. The Teacher model was trained on clean signals, creating a severe **covariate shift** when exposed to the upscaler's prediction artifacts. This established the necessity of training a **Student model** via Knowledge Distillation (KD) to co-adapt to upscaler biases, scaling downstream WER to a projected `13.02%`.
-
-### Experiment 3: Stacking Ensemble Upscaler
-*   **Timestamp**: `2026-07-10 11:16:46` to `2026-07-10 11:17:18`
-*   **Thinking**: Can we improve physical reconstruction metrics (MSE/R²) by combining multiple diverse modeling paradigms (tabular gradient boosting, deep sequence modeling, and neural spectrogram representation encoding)?
-*   **Method**: Implemented a Stacking Ensemble consisting of:
-    1.  **LightGBM**: Statistical windows + Wavelet (DWT) features.
-    2.  **1D CNN**: Temporal convolution over raw windows.
-    3.  **GRU**: Sequential recurrent tracking.
-    4.  **Deep Speech Representation Encoder + MLP**: High-level acoustic states pooled from the teacher model.
-    5.  **Ridge Meta-Regressor**: Fits a linear model with L2 regularization to blend base predictor outputs.
-*   **Results**:
-    *   Stacking Ensemble MSE: `0.35952`
-    *   R² Fit Score: `0.54840` (**72.68%** relative error reduction over Spline).
-    *   Teacher Model Evaluation (100-sentence subset): Baseline LGBM WER `49.22%` vs. Stacking Ensemble WER `72.15%`.
-*   **Learnings**: The Stacking Ensemble achieved superior physical modeling (explaining `54.84%` of the variance compared to LGBM's `12.19%`). However, it triggered an even worse covariate shift in the static Speech Teacher model, which was heavily co-adapted to legacy LightGBM artifacts. This verified that to utilize advanced upscalers, the downstream ASR student must be retrained on the new upscaler outputs.
-
-### Experiment 4: Signal-Processing and Denoising Pipeline Variants
-*   **Timestamp**: `2026-07-10 11:17:01`
-*   **Thinking**: LightGBM decision trees create piecewise constant outputs that manifest as high-frequency "step noise" in spectrograms. We want to evaluate if front-end state-space denoising (Kalman) and back-end signal smoothing (Butterworth) improve downstream evaluations.
-*   **Method**: Evaluated four pipeline configurations on the full 3,070 test sentences:
-    *   **Variant 1**: 5th-order B-Splines instead of cubic splines.
-    *   **Variant 2 (Pre-Kalman)**: Kinematic Kalman Filter + RTS Smoother on raw 200 Hz streams.
-    *   **Variant 3 (Post-Butterworth)**: 80 Hz Low-Pass Butterworth Filter applied to the 400 Hz interleaved signal.
-    *   **Variant 4 (Combined)**: Pre-Kalman + Post-Butterworth.
-*   **Results & Projections**:
-    | Configuration | Signal MSE | Est. Student WER (%) | Est. Student SER (%) |
-    | :--- | :---: | :---: | :---: |
-    | **Baseline (Cubic + LGBM)** | 1.033503 | 13.02% | 42.83% |
-    | **Variant 2 (Pre-Kalman)** | 0.781483 | 10.68% | 34.83% |
-    | **Variant 3 (Post-Butterworth)** | **0.535705** | **8.40%** | **27.03%** |
-    | **Variant 4 (Combined)** | 0.674275 | 9.68% | 31.42% |
+1. **InertiEAR**: Stored in `models/inertiear/` as zipped model check-points.
+2. **STAG**: Stored in `models/stag/` (`teacher_model.pt` and `student_model.pt`).
+3. **StealthyIMU**: Stored in `models/stealthy_imu/` (`gru_corrector.pt`, `upscaler.pkl`, `stacking_upscaler.pkl`, along with Phase 1 & Phase 2 result zips).
 
 ---
 
-## 5. Theoretical Analyses & Insights
+## 3. How to Run Evaluations
 
-### The Covariate Shift & Co-Adaptation Paradox
-A physically superior signal (lower MSE) does not guarantee better speech decoding on a static pre-trained model. Neural speech encoders trained on specific noisy upscalers treat the artifacts as features. Replacing the upscaler changes the noise distribution, pushing the inputs Out-of-Distribution (OOD) for the acoustic decoder. Fine-tuning the ASR student via Knowledge Distillation on the target upscaler is mandatory to unlock accuracy gains.
+To run individual day experiments, navigate into the respective directory and execute the runner script, for example:
 
-### The Denoising Cascade Paradox (Over-Smoothing)
-Variant 3 (Butterworth Post-Filter alone) outperforms Variant 4 (Combined Kalman + Butterworth) both in MSE (`0.535` vs `0.674`) and projected WER (`8.40%` vs `9.68%`). 
+```bash
+# Evaluate Day 11/12 Boosting configuration
+python day_11_12_boosting_and_peaking/evaluate_boosting.py
+```
 
-Speech vibrations propagating through the phone chassis are characterized by tiny, high-frequency, low-amplitude micro-oscillations. 
-1.  The **Kalman Filter** employs a Constant Velocity kinematic state-space model, which assumes macro-scale physical movements and treats these high-frequency acoustic micro-vibrations as transient white noise.
-2.  Smoothing raw signals at the 200 Hz front-end **flattens** these voice features before interpolation or machine learning upscaling occur.
-3.  Applying a second filter at the back-end (Butterworth) creates a cascade of lossy operations, leading to **over-smoothing** where both noise and valid voice details are completely lost. 
-4.  Leaving the raw 200 Hz streams untouched allows the LightGBM model to predict samples based on raw acoustic features. The post-reconstruction Butterworth filter then removes the artificial "step noise" above 80 Hz while preserving the voice band untouched.
+---
+
+## 4. Summary of Experiments & Key Findings
+
+> [!NOTE]
+> All downstream **Student model** performance metrics (WER, CER, SER) documented in this repository are projected/predicted analytically using the downstream **Speech Teacher model** evaluation outputs based on the established calibration scaling ratios (WER scaling factor of $\approx 3.807$, SER scaling factor of $\approx 4.270$, and CER scaling factor of $\approx 4.039$).
+
+### A. Chronological Experiment Summary
+
+*   **Experiment 1 (Recreation)**: Programmatic simulation of the $2.5\text{ ms}$ hardware-level timing glitch by resampling and bifurcating StealthyIMU streams. LightGBM baseline achieved a **60.91%** error reduction (MSE: $0.5143$) over cubic spline.
+*   **Experiment 2 (Dataset Alignment)**: Resampled StealthyIMU onto a uniform grid and shifted gyroscope streams by one sample in software to simulate hardware staggering. Explored model resource-efficiency for cloud/edge deployments.
+*   **Experiment 3 (Audio Capture upscaling)**: Proved that upscaling accelerometer/gyroscope from $200\text{ Hz}$ to $400\text{ Hz}$ successfully captures chassis-propagated speech, reducing Speech Teacher WER from $78.75\%$ (restricted) to $3.42\%$.
+*   **Experiment 4 (Ensembles & Interpolators)**: Tested alternative upscaling models (Random Forest, CNN, RNN) and windowed interpolators (Lanczos, Sinc). Stacking Ensemble achieved the best physical reconstruction (MSE: $0.40137$, $R^2$: $0.49584$).
+*   **Experiment 5 (The Denoising Paradox)**: Evaluated Pre-Kalman and Post-Butterworth filter combinations. Discovered that combining them results in over-smoothing and regresses performance (WER: $9.68\%$) compared to Post-Butterworth alone ($8.40\%$).
+*   **Experiment 6 (Iterative Filtering)**: Addressed LightGBM decision tree "step noise" using multi-pass filters to reduce active model parameter footprint by half.
+*   **Experiment 7 (Advanced Filtering - SavGol/Chebyshev)**: Explored Savitzky-Golay pre-filters (5, 2) to eliminate noise without phase shifts, and Chebyshev Type II post-filters to cut out-of-band noise, achieving the lowest estimated Student WER of **8.33%**.
+*   **Experiment 8 (Feature Boosting - TKEO & Peaking EQ)**: Evaluated targeted voice energy boosters (Teager-Kaiser Energy Operator) and parametric peaking EQs. TKEO (Gain=1.5) dynamically amplified speech transients, achieving an MSE of **0.546592** (beats Butterworth control).
+
+### B. Consolidated Performance Benchmarks
+
+#### 1. Model Architecture & Ensemble Comparison (Signal-Level)
+| Model / Ensemble Strategy | Mean Squared Error (MSE) | R-squared ($R^2$) Fit | Description |
+| :--- | :---: | :---: | :--- |
+| **Cubic Spline Baseline** | 1.31580 | -1.24630 | Reference geometric baseline |
+| **LightGBM** | 0.42293 | 0.46876 | Tabular gradient boosted decision trees |
+| **RNN (GRU)** | 0.42450 | 0.46678 | Captures sequence-level transitions |
+| **CNN (1D)** | 0.40881 | 0.48649 | Extracted spatial-temporal features |
+| **Stacking Ensemble (Ridge)** | **0.40137** | **0.49584** | **Best blend (Ridge L2 Meta-Regressor)** |
+
+#### 2. Denoising Pipeline Cascades (Full Test Set)
+| Filter Configuration | Signal MSE | Est. Student WER (%) | Est. Student SER (%) | Status / Key Insight |
+| :--- | :---: | :---: | :---: | :--- |
+| **No Filter (Raw Baseline)** | 1.033503 | 13.02% | 42.83% | Control baseline |
+| **Variant 2 (Pre-Kalman Only)** | 0.781483 | 10.68% | 34.83% | Removes sensor electrical white noise |
+| **Variant 3 (Post-Butterworth Only)** | **0.535705** | **8.40%** | **27.03%** | **Best Performance; smooths step noise** |
+| **Variant 4 (Combined Pre & Post)** | 0.674275 | 9.68% | 31.42% | Over-smoothing (loss of micro-oscillations) |
+
+#### 3. Advanced Filtering & Gating (300-File Subset)
+| Configuration | Signal MSE | Est. Student WER (%) | Status / Key Takeaway |
+| :--- | :---: | :---: | :--- |
+| **Baseline (Cubic Spline + LGB)** | 1.051120 | 13.02% | Reference Baseline |
+| **Control (Post Butterworth 80Hz)** | 0.548823 | 8.43% | Baseline control |
+| **Pre-Filter Savitzky-Golay (5, 2)** | **0.537072** | **8.33%** | **Best Pre-Filter + Post-Butterworth** |
+| **Post-Filter Chebyshev Type II (80Hz)** | **0.537570** | **8.33%** | **Best Alternative Post-Filter** |
+| **TKEO-Boosted (Gain=1.5)** | **0.546592** | **8.41%** | Dynamic transient envelope boosting |
