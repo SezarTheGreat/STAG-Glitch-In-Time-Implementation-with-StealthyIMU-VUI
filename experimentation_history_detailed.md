@@ -1,6 +1,9 @@
 # STAG & StealthyIMU Detailed Experimentation History
 
-This report maps the entire experimental trajectory of the STAG upscaling and StealthyIMU Speech Language Understanding (SLU) project, structured chronologically from **Experiment 1 (Recreation)** through **Experiment 6 (Iterative Filtering)**.
+This report maps the entire experimental trajectory of the STAG upscaling and StealthyIMU Speech Language Understanding (SLU) project, structured chronologically from **Experiment 1 (Recreation)** through **Experiment 8 (Feature Boosting)**.
+
+> [!NOTE]
+> All downstream **Student model** performance metrics (WER, CER, SER) documented in this history are projected/predicted analytically using the downstream **Speech Teacher model** evaluation outputs based on the established calibration scaling ratios (WER scaling factor of $\approx 3.807$, SER scaling factor of $\approx 4.270$, and CER scaling factor of $\approx 4.039$).
 
 ---
 
