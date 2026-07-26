@@ -44,6 +44,10 @@ The side-by-side reconstruction fidelity benchmarks on the test set are summariz
 
 This section compares the Speech SLU recognition metrics across five distinct sensor and upscaler conditions. The table lists both the measured/projected **Teacher Model** metrics and the estimated/reported **Student Model** metrics (calibrated using the performance ratios).
 
+> [!NOTE]
+> The downstream **Student Model** performance (Student WER/CER/SER) is projected analytically using the downstream **Teacher Model** evaluation results based on the established calibration scaling ratios (WER scaling factor of $\approx 3.807$, SER scaling factor of $\approx 4.270$, and CER scaling factor of $\approx 4.039$).
+
+
 | Condition | Sensor Configuration | Teacher WER | Teacher CER | Teacher SER | Student WER | Student CER | Student SER |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
 | **StealthyIMU for 400Hz** | High-rate original IMU (400 Hz) | *Not Est* | *Not Est* | 3.38% | *Not Rep* | *Not Rep* | 14.45% |
@@ -73,5 +77,5 @@ The estimated Student model performance is projected directly from the measured 
 ## 4. How to Reproduce Benchmarks
 To run the training and inference benchmark pipeline:
 ```powershell
-python projects/paper_based_reconstruction_with_other_models/evaluate.py
+python day_07_08_alternate_models_and_interpolation/evaluate.py
 ```

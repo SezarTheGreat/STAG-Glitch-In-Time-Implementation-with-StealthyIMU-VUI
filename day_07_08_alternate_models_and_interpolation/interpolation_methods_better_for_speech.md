@@ -52,6 +52,9 @@ This method transforms the signal to the frequency domain using the Discrete Fou
 
 Below is the comparative evaluation of the three baseline models and the pipelines built on top of the new DSP-aligned interpolation variants:
 
+> [!NOTE]
+> The downstream **Student model** metrics (Est. Student WER / CER / SER) are projected analytically from the measured **downstream Teacher model** results using the established scaling ratios (WER scaling factor of $\approx 3.807$, SER scaling factor of $\approx 4.270$, and CER scaling factor of $\approx 4.039$).
+
 | Model / Pipeline ID | Interpolation Method | Pre-Filter | Post-Filter | Signal MSE | Downstream Teacher WER / CER / SER (%) | Est. Student WER / CER / SER (%) | Status / Comparison |
 | :--- | :--- | :--- | :--- | :---: | :---: | :---: | :--- |
 | **[BASELINE 1] Clean Limit** | *None* | *None* | *None* | *N/A* | 3.42% / 1.92% / 10.03% | 3.42% / 1.92% / 10.03% | Theoretical Upper Bound (No Cap) |
@@ -62,8 +65,8 @@ Below is the comparative evaluation of the three baseline models and the pipelin
 
 ---
 
-## 5. Implementation in `projects/interpolation_experiments/alternative_interpolations.py`
+## 5. Implementation in `day_07_08_alternate_models_and_interpolation/alternative_interpolations.py`
 We have implemented these alternative interpolation functions:
-- [alternative_interpolations.py](file:///c:/Users/jyoti/OneDrive/Desktop/STAG%20Implementation%20with%20StealthyIMU%20VUI/projects/interpolation_experiments/alternative_interpolations.py)
+- [alternative_interpolations.py](file:///c:/Users/jyoti/OneDrive/Desktop/STAG%20Implementation%20with%20StealthyIMU%20VUI/day_07_08_alternate_models_and_interpolation/alternative_interpolations.py)
 
 You can run experiments using `sinc` or `lanczos` for pre-prediction alignment to evaluate their impact on the down-stream SpeechBrain model's WER/CER metrics.

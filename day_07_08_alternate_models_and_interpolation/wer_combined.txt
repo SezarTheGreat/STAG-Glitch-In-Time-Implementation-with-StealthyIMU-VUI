@@ -1,0 +1,61 @@
+%WER 48.00 [ 36 / 75, 3 ins, 5 del, 28 sub ]
+%SER 100.00 [ 10 / 10 ]
+Scored 10 sentences, 0 not present in hyp.
+================================================================================
+ALIGNMENTS
+
+Format:
+<utterance-id>, WER DETAILS
+<eps> ; reference  ; on ; the ; first ;  line
+  I   ;     S      ; =  ;  =  ;   S   ;   D  
+ and  ; hypothesis ; on ; the ; third ; <eps>
+================================================================================
+4e967946-d089-3216-8de8-5520bc9e9bca, %WER 42.86 [ 3 / 7, 0 ins, 0 del, 3 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]}
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;       S      
+{'action': ;  'reminder'|  ; 'entities': ; [{'type': ;  'time'|  ; 'filler': ; 'tomorrow'}]}
+================================================================================
+f9f4ec80-5059-39b3-b205-4b4da52b0588, %WER 42.86 [ 3 / 7, 0 ins, 0 del, 3 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]}
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;       S      
+{'action': ;  'reminder'|  ; 'entities': ; [{'type': ;  'time'|  ; 'filler': ; 'tomorrow'}]}
+================================================================================
+403c8f5b-99f9-32fd-9035-4edf98380717, %WER 50.00 [ 6 / 12, 0 ins, 5 del, 1 sub ]
+{'action': ; 'reminder'| ; 'entities': ; [{'type': ; 'time'| ; 'filler': ;      'on      ; thursday ;   at  ; seven ; thirty ; pm'}]}
+    =      ;      =      ;      =      ;     =     ;    =    ;     =     ;       S       ;    D     ;   D   ;   D   ;   D    ;   D   
+{'action': ; 'reminder'| ; 'entities': ; [{'type': ; 'time'| ; 'filler': ; 'tomorrow'}]} ;  <eps>   ; <eps> ; <eps> ; <eps>  ; <eps> 
+================================================================================
+3496b616-3273-3e70-a23d-4e7dca9a3498, %WER 57.14 [ 4 / 7, 1 ins, 0 del, 3 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]} ;    <eps>   
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;       S       ;      I     
+{'action': ;  'reminder'|  ; 'entities': ; [{'type': ;  'time'|  ; 'filler': ;      'on      ; tuesday'}]}
+================================================================================
+4d9a7973-3f34-3f43-a37d-43d00f8329b60, %WER 42.86 [ 3 / 7, 0 ins, 0 del, 3 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]}
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;       S      
+{'action': ;  'reminder'|  ; 'entities': ; [{'type': ;  'time'|  ; 'filler': ; 'tomorrow'}]}
+================================================================================
+5b93af72-993f-3e60-9f8d-faf9d9f65dc60, %WER 42.86 [ 3 / 7, 0 ins, 0 del, 3 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'destination'}]}
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;        S        
+{'action': ;  'reminder'|  ; 'entities': ; [{'type': ;  'time'|  ; 'filler': ;  'tomorrow'}]}  
+================================================================================
+e537426a-0116-3e3b-acdf-9451d6e481df, %WER 42.86 [ 3 / 7, 0 ins, 0 del, 3 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'destination'}]}
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;        S        
+{'action': ;  'reminder'|  ; 'entities': ; [{'type': ;  'time'|  ; 'filler': ;  'tomorrow'}]}  
+================================================================================
+bc6e3edb-96c8-3340-8eda-faa5a559ee77, %WER 42.86 [ 3 / 7, 0 ins, 0 del, 3 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]}
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;       S      
+{'action': ;  'reminder'|  ; 'entities': ; [{'type': ;  'time'|  ; 'filler': ; 'tomorrow'}]}
+================================================================================
+5b9581a9-ce35-32e5-abf6-f09283df756c, %WER 71.43 [ 5 / 7, 2 ins, 0 del, 3 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]} ; <eps> ;  <eps> 
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;       S       ;   I   ;    I   
+{'action': ;  'reminder'|  ; 'entities': ; [{'type': ;  'todo'|  ; 'filler': ;     'take     ; trash ; out'}]}
+================================================================================
+c249b6f3-7a81-39b5-acd7-69997bdcd7590, %WER 42.86 [ 3 / 7, 0 ins, 0 del, 3 sub ]
+{'action': ; 'navigation'| ; 'entities': ; [{'type': ; 'intent'| ; 'filler': ; 'continue'}]}
+    =      ;       S       ;      =      ;     =     ;     S     ;     =     ;       S      
+{'action': ;  'reminder'|  ; 'entities': ; [{'type': ;  'time'|  ; 'filler': ; 'tomorrow'}]}
