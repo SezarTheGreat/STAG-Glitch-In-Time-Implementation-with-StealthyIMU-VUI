@@ -47,6 +47,9 @@ graph TD
 
 ## 2. Downstream Metrics Comparison (Full Test Set)
 
+> [!NOTE]
+> The ASR Student Model performance (Est. Student WER/CER) is projected analytically from the measured Speech Teacher model metrics (Downstream WER/CER) using the established calibration ratios (WER scaling factor of $\approx 3.807$, CER scaling factor of $\approx 4.039$).
+
 | Pipeline ID | Interpolation Method | Pre-Filter Type | ML Additions (if any) | Post-Filter Type | Signal MSE | Downstream WER (%) | Downstream CER (%) | Est. Student WER (%) | Est. Student CER (%) |
 | :--- | :--- | :--- | :--- | :--- | :---: | :---: | :---: | :---: | :---: |
 | **Baseline** | Cubic Spline | None | None | Butterworth (80Hz) | 0.535705 | 62.10% | 40.09% | 13.02% | 7.30% |

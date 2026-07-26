@@ -6,7 +6,9 @@ This report documents the signal upscaling optimization results using downstream
 
 ## 1. Estimated Student Model Metrics (Full Test Set)
 
-*Note: The student model is trained directly on the upscaled signal variants, allowing it to translate physical signal improvements (lower MSE) into downstream speech recognition accuracy.*
+> [!NOTE]
+> The downstream **Student model** performance (WER, CER, SER) is projected analytically using the downstream **Speech Teacher model** evaluation results based on the established calibration scaling ratios (WER factor of $\approx 3.807$, SER factor of $\approx 4.270$, and CER factor of $\approx 4.039$). This allows physical signal improvements (lower MSE) to be translated into projected downstream deployment accuracy.
+
 
 ### Baselines and Experimental Comparison Table
 *   **Baselines are explicitly labeled and highlighted in the table below.**

@@ -65,6 +65,9 @@ graph TD
 ## 3. Comparative Metrics Table (Full Test Split Evaluation)
 Measured Teacher results and projected Student results across all configurations:
 
+> [!NOTE]
+> The downstream **Student model** metrics (WER, CER, SER) are projected analytically from the measured **Speech Teacher model** results using established calibration ratios (WER scaling factor of $\approx 3.807$, SER scaling factor of $\approx 4.270$, and CER scaling factor of $\approx 4.039$).
+
 ### A. Measured Teacher Model Metrics (3,070 Sentences)
 | Method Configuration | Signal MSE | Downstream WER (%) | Downstream CER (%) | Downstream SER (%) |
 | :--- | :---: | :---: | :---: | :---: |
