@@ -2,6 +2,10 @@
 
 This report summarizes the experimental results of evaluating filters that actively amplify/boost key speech components (e.g. fundamental frequency, speech energy envelope) on 300 StealthyIMU test files.
 
+> [!NOTE]
+> The downstream **Student model** performance metrics (Est. Student WER / CER / SER) are projected/predicted analytically using the downstream **Speech Teacher model** evaluation outputs based on the established calibration scaling ratios (WER scaling factor of $\approx 3.807$, SER scaling factor of $\approx 4.270$, and CER scaling factor of $\approx 4.039$).
+
+
 | Configuration | Signal MSE | Est. Student WER (%) | Est. Student CER (%) | Est. Student SER (%) | Status / Relative Change |
 | :--- | :---: | :---: | :---: | :---: | :--- |
 | **Baseline (Cubic Spline + LGB)** | 1.051120 | 13.02% | 7.30% | 42.83% | Reference Baseline |
