@@ -1,0 +1,4 @@
+Student KD Baseline - MSE: 0.796256, R2: -0.000188
+Teacher-led Stacking Champion - MSE: 0.359524, R2: 0.548397
+MSE Improvement: 54.85%
+R-squared Gain: 0.548585

@@ -59,7 +59,7 @@ class ResidualGRU(nn.Module):
 
 # Load GRU model if it exists
 GRU_MODEL = None
-GRU_MODEL_PATH = "common/models/gru_corrector.pt"
+GRU_MODEL_PATH = "models/stealthy_imu/gru_corrector.pt"
 if os.path.exists(GRU_MODEL_PATH):
     print("Loading pre-trained Residual GRU Corrector...")
     GRU_MODEL = ResidualGRU()
@@ -239,15 +239,15 @@ def run_variant_eval(variant_name, upscaler_lgb, output_wer_file, device="cpu"):
     CURRENT_VARIANT = variant_name
     MSE_COLLECTOR = []
     
-    hparams_file = "projects/stag_original/hparams/paper_exact.yaml"
+    hparams_file = "day_04_05_stag_recreation/hparams/paper_exact.yaml"
     overrides = {
         "seed": 1235,
         "data_folder": "common/data/StealthyIMU_dataset/",
-        "csv_test": "projects/stag_original/results/slu_baseline_paper/1235/test-type=direct.csv",
-        "csv_train": "projects/stag_original/results/slu_baseline_paper/1235/train-type=direct.csv",
-        "csv_valid": "projects/stag_original/results/slu_baseline_paper/1235/valid-type=direct.csv",
-        "output_folder": "projects/stag_original/results/slu_baseline_paper/1235",
-        "tokenizer_file": "projects/stag_original/pretrain/51_unigram.model"
+        "csv_test": "day_04_05_stag_recreation/results/slu_baseline_paper/1235/test-type=direct.csv",
+        "csv_train": "day_04_05_stag_recreation/results/slu_baseline_paper/1235/train-type=direct.csv",
+        "csv_valid": "day_04_05_stag_recreation/results/slu_baseline_paper/1235/valid-type=direct.csv",
+        "output_folder": "day_04_05_stag_recreation/results/slu_baseline_paper/1235",
+        "tokenizer_file": "day_04_05_stag_recreation/pretrain/51_unigram.model"
     }
     
     with open(hparams_file) as fin:
@@ -293,7 +293,7 @@ def run_variant_eval(variant_name, upscaler_lgb, output_wer_file, device="cpu"):
 
 def main():
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    upscaler_path = "common/models/upscaler.pkl"
+    upscaler_path = "models/stealthy_imu/upscaler.pkl"
     with open(upscaler_path, 'rb') as f:
         lgb_upscaler = pickle.load(f)
         
@@ -301,15 +301,15 @@ def main():
     
     # Main Experimental Configurations to run
     variants = [
-        ("Baseline", "projects/optimization_experiments/wer_baseline.txt"),
-        ("Exp_V1", "projects/optimization_experiments/wer_exp_v1.txt"),
-        ("Exp_V2", "projects/optimization_experiments/wer_exp_v2.txt"),
-        ("Exp_V3", "projects/optimization_experiments/wer_exp_v3.txt"),
-        ("Exp_V4", "projects/optimization_experiments/wer_exp_v4.txt"),
-        ("Exp_V5", "projects/optimization_experiments/wer_exp_v5.txt"),
-        ("Exp_V6", "projects/optimization_experiments/wer_exp_v6.txt"),
-        ("Exp_V7", "projects/optimization_experiments/wer_exp_v7.txt"),
-        ("Exp_V8", "projects/optimization_experiments/wer_exp_v8.txt"),
+        ("Baseline", "day_09_10_filter_pipelines_and_optimizations/wer_baseline.txt"),
+        ("Exp_V1", "day_09_10_filter_pipelines_and_optimizations/wer_exp_v1.txt"),
+        ("Exp_V2", "day_09_10_filter_pipelines_and_optimizations/wer_exp_v2.txt"),
+        ("Exp_V3", "day_09_10_filter_pipelines_and_optimizations/wer_exp_v3.txt"),
+        ("Exp_V4", "day_09_10_filter_pipelines_and_optimizations/wer_exp_v4.txt"),
+        ("Exp_V5", "day_09_10_filter_pipelines_and_optimizations/wer_exp_v5.txt"),
+        ("Exp_V6", "day_09_10_filter_pipelines_and_optimizations/wer_exp_v6.txt"),
+        ("Exp_V7", "day_09_10_filter_pipelines_and_optimizations/wer_exp_v7.txt"),
+        ("Exp_V8", "day_09_10_filter_pipelines_and_optimizations/wer_exp_v8.txt"),
     ]
     
     for var_name, output_wer_file in variants:

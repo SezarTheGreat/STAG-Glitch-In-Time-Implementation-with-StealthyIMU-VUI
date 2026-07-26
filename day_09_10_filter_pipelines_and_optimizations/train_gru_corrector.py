@@ -27,10 +27,10 @@ class ResidualGRU(nn.Module):
         return res
 
 def main():
-    metadata_file = "projects/stag_original/results/slu_baseline_paper/1235/train-type=direct.csv"
+    metadata_file = "day_04_05_stag_recreation/results/slu_baseline_paper/1235/train-type=direct.csv"
     dataset_root = "common/data/StealthyIMU_dataset/"
-    upscaler_path = "common/models/upscaler.pkl"
-    save_path = "common/models/gru_corrector.pt"
+    upscaler_path = "models/stealthy_imu/upscaler.pkl"
+    save_path = "models/stealthy_imu/gru_corrector.pt"
     
     print("Loading datasets and model...")
     import csv
