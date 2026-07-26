@@ -318,7 +318,7 @@ def dataio_prepare(hparams):
                     # Ensure projects is importable
                     sys.path.append(os.path.abspath(os.path.join(hparams["data_folder"], '..')))
                     sys.path.append(os.path.abspath(os.path.join(hparams["data_folder"], '..', 'projects', 'combined_reconstruction')))
-                    upscaler_path = 'common/models/stacking_upscaler.pkl'
+                    upscaler_path = 'models/stealthy_imu/stacking_upscaler.pkl'
                     with open(upscaler_path, 'rb') as f:
                         stacking_upscaler = pickle.load(f)
                 
