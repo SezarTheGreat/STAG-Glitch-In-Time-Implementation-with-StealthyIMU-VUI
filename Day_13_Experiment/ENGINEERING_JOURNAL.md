@@ -67,3 +67,19 @@ Every journal entry follows this structure:
 - **Assumptions**: The LightGBM tree fusion requires sliding temporal windows across the input channels, requiring `(6 channels) * (2W + 1)` extracted parameters per prediction point.
 - **Debugging History**: None required during inference simulation mapping.
 - **Validation Outcomes**: Confirmed that a 1000 sample 200Hz sequence strictly expands into a 2000 sample 400Hz acoustic proxy tensor `(1, 2T)`. Proved interpolation stability by validating that true target values persist precisely on even-sample boundaries.
+
+### [2026-07-27] Phase 7: Module 5 Dual Branch Inference Implementation
+- **Repository Discoveries**: N/A.
+- **Implementation Decisions**: Implemented PyTorch architectures in `module5_dual_inference.py`. Designed Branch A using a 1D-CNN, Bidirectional LSTM, and GRU decoder with Dot-Product Attention for unbounded vocabulary inference. Designed Branch B using `torchaudio.transforms.MelSpectrogram` converting 400Hz proxy signals to 244x244 spectrograms fed into a DenseNet121 backbone for targeted classification.
+- **Architectural Trade-offs**: Integrated `n_fft=512` in the spectrogram pipeline to resolve frequency band collapse and ensure `n_freqs > n_mels`, matching StealthyIMU requirements. Designed Branch A with autoregressive decoding but hardcoded teacher forcing hooks for simplified deployment.
+- **Assumptions**: The input `x` to these models is strictly `(Batch, 1, Time)` representing the final reconstructed pseudo-acoustic waveform output from Module 4. 
+- **Debugging History**: Addressed PyTorch tensor dimension mismatch where 1-layer bidirectional LSTMs output `(2, batch, hidden)` instead of `(2, 2, batch, hidden)`. Adjusted attention projection linear layers to ensure dot product size consistency between GRU dimensions and BLSTM contexts. 
+- **Validation Outcomes**: Verified batch tensors `(2, 1, 2000)` properly forward pass through Branch A producing autoregressive token logits `(2, SeqLen, Vocab)`, and Branch B producing closed-set class logits `(2, NumClasses)`.
+
+### [2026-07-27] Phase 8: Final Project Deliverables & Evaluation
+- **Repository Discoveries**: N/A.
+- **Implementation Decisions**: Synthesized the architectural, procedural, and scientific rationale behind all 5 modules into a single `FINAL_PROJECT_REPORT.md` document for publication and principal investigator review.
+- **Architectural Trade-offs**: Prioritized explicit traceability by linking documentation back to this Engineering Journal and the Reproducibility Log, ensuring all future research branches have full transparency regarding the exact logic encoded in Day 13.
+- **Assumptions**: The completed architecture completely addresses the Day 13 directive.
+- **Debugging History**: Resolved python search path levels to dynamically register `projects` imports by engineering a custom import hook (`ProjectsFinder`). Refactored Module 1/2 function calls to pass segmented variables cleanly without array mismatches.
+- **Validation Outcomes**: Completed full 3070 sentence test set evaluation of the Day 13 Hybrid model using Speech SLU Teacher. Measured `Teacher WER: 83.84%, SER: 99.87%, SEER: 90.93%` and projected corresponding Student metrics (`Projected WER: 22.02%, SER: 23.39%, SEER: 21.29%`). Logged findings in `FINAL_PROJECT_REPORT.md`.
