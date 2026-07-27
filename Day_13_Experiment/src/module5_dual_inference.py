@@ -31,7 +31,7 @@ class BranchA_Seq2Seq(nn.Module):
         )
         
         self.embed = nn.Embedding(self.config.vocab_size, 128)
-        self.gru = nn.GRUCell(128 + self.config.blstm_hidden * 2, self.config.gru_hidden)
+        self.gru = nn.GRUCell(128 + self.config.gru_hidden, self.config.gru_hidden)
         self.fc_out = nn.Linear(self.config.gru_hidden, self.config.vocab_size)
         
         self.hidden_proj = None
