@@ -15,6 +15,51 @@ _old_getattr = iu.LazyModule.__getattr__
 iu.LazyModule.__getattr__ = lambda self, attr: (_ for _ in ()).throw(
     AttributeError(attr)) if attr.startswith('__') else _old_getattr(self, attr)
 
+# ----------------- Custom Import Finder to resolve 'projects' namespace -----------------
+import importlib.abc
+import importlib.util
+import importlib.machinery
+
+class ProjectsFinder(importlib.abc.MetaPathFinder):
+    def find_spec(self, fullname, path, target=None):
+        if fullname == "projects":
+            spec = importlib.machinery.ModuleSpec(fullname, None, is_package=True)
+            spec.submodule_search_locations = []
+            return spec
+            
+        if fullname.startswith("projects."):
+            parts = fullname.split(".")
+            submodule = parts[1]
+            
+            mapping = {
+                "stag_original": "day_04_05_stag_recreation",
+                "interpolation_experiments": "day_07_08_alternate_models_and_interpolation",
+                "boosting_experiments": "day_11_12_boosting_and_peaking"
+            }
+            
+            if submodule in mapping:
+                real_sub = mapping[submodule]
+                workspace_root = "c:\\Users\\jyoti\\OneDrive\\Desktop\\STAG Implementation with StealthyIMU VUI"
+                remaining = parts[2:]
+                physical_path = os.path.join(workspace_root, real_sub, *remaining)
+                
+                if os.path.isdir(physical_path):
+                    init_py = os.path.join(physical_path, "__init__.py")
+                    if os.path.isfile(init_py):
+                        return importlib.util.spec_from_file_location(fullname, init_py)
+                    else:
+                        spec = importlib.machinery.ModuleSpec(fullname, None, is_package=True)
+                        spec.submodule_search_locations = [physical_path]
+                        return spec
+                else:
+                    py_file = physical_path + ".py"
+                    if os.path.isfile(py_file):
+                        return importlib.util.spec_from_file_location(fullname, py_file)
+        return None
+
+sys.meta_path.insert(0, ProjectsFinder())
+
+# ----------------- Regular Imports -----------------
 import torch
 import speechbrain as sb
 from hyperpyyaml import load_hyperpyyaml
@@ -25,8 +70,7 @@ torch.set_num_threads(18)
 # Add paths to sys.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'day_04_05_stag_recreation')))
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
-sys.path.append(os.path.dirname(__file__))
+sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
 import train
 from projects.stag_original.src.pipeline.dataset import get_stag_bifurcation
@@ -76,10 +120,11 @@ def prepare_day13_data(hparams, upscaler_lgb):
         features_200 = np.vstack([acc_odd.reshape(1, -1), gyro_even])
         
         # 2. Module 1: Pre-processing Median/Wiener filter & DC bias removal
-        features_denoised = m1.preprocess_raw_signal(features_200, prep_config)
+        acc_denoised, gyro_denoised = m1.process_raw_imu(acc_odd.reshape(1, -1), gyro_even, prep_config)
+        features_denoised = np.vstack([acc_denoised, gyro_denoised])
         
         # 3. Module 2: InertiEAR energy envelope segmentation mask
-        speech_mask = m2.generate_speech_mask(features_denoised, seg_config)
+        speech_mask = m2.segment_speech(acc_denoised, gyro_denoised, prep_config, seg_config)
         
         # 4. Module 3: Normalization (Z-score scaling pure speech regions)
         features_normalized = m3.apply_device_independent_scaling(features_denoised, speech_mask, norm_config)
@@ -135,7 +180,7 @@ def prepare_day13_data(hparams, upscaler_lgb):
     return test_data, tokenizer
 
 def run_day13_eval(upscaler_lgb, device="cpu"):
-    hparams_file = "day_04_05_stag_recreation/hparams/paper_exact.yaml"
+    hparams_file = "day_04_05_stag_recreation/paper_exact.yaml"
     overrides = {
         "seed": 1235,
         "data_folder": "common/data/StealthyIMU_dataset/",
