@@ -58,11 +58,13 @@ The repository is structured chronologically by the day of experimentation, plac
 │   ├── stacking.py                            # Stacking ensemble implementations
 │   └── evaluate_slu.py                        # Stacking evaluator
 │
-└── day_11_12_boosting_and_peaking/           # Feature boosting and acoustic peaking
-    ├── Boosting_Methods_Evaluation.md         # TKEO and Peaking EQ report
-    ├── feature_boosting_results.md            # Vocal resonance amplification log
-    ├── evaluate_boosting.py                   # Boosting evaluator
-    └── evaluate_peaking_sweep.py              # Peaking biquad sweep
+├── day_11_12_boosting_and_peaking/           # Feature boosting and acoustic peaking
+│   ├── Boosting_Methods_Evaluation.md         # TKEO and Peaking EQ report
+│   ├── feature_boosting_results.md            # Vocal resonance amplification log
+│   ├── evaluate_boosting.py                   # Boosting evaluator
+│   └── evaluate_peaking_sweep.py              # Peaking biquad sweep
+│
+└── Day_13_Experiment/            # Day 13 experiment documentation
 ```
 
 ---
