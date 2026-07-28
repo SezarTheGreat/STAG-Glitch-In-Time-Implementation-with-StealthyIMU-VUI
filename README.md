@@ -64,7 +64,12 @@ The repository is structured chronologically by the day of experimentation, plac
 │   ├── evaluate_boosting.py                   # Boosting evaluator
 │   └── evaluate_peaking_sweep.py              # Peaking biquad sweep
 │
-└── Day_13_Experiment/            # Day 13 experiment documentation
+├── Day_13_Experiment/                         # Day 13 hybrid VAD, STAG & StealthyIMU pipeline
+│   ├── README.md                              # Master index and navigation for Day 13 files
+│   ├── FINAL_PROJECT_REPORT.md                # Comprehensive project report & insights
+│   ├── ARCHITECTURE.md                        # Modular 5-module pipeline architecture
+│   ├── BENCHMARK_RESULTS.md                   # Key performance targets and metrics
+│   └── REPRODUCIBILITY_LOG.md                 # Complete replication instructions
 ```
 
 ---
@@ -73,9 +78,11 @@ The repository is structured chronologically by the day of experimentation, plac
 
 All model files, check-pointed weights (`.pt`/`.pkl`), and dataset results archives (`.zip`) are consolidated inside the top-level `/models/` directory:
 
-1. **InertiEAR**: Stored in `models/inertiear/` as zipped model check-points.
-2. **STAG**: Stored in `models/stag/` (`teacher_model.pt` and `student_model.pt`).
-3. **StealthyIMU**: Stored in `models/stealthy_imu/` (`gru_corrector.pt`, `upscaler.pkl`, `stacking_upscaler.pkl`, along with Phase 1 & Phase 2 result zips).
+| Path | Model / Weights / Dataset Archive | Description |
+| :--- | :--- | :--- |
+| `models/lgb_stag_upscaling.pkl` | LightGBM Upscaler | Baseline decision tree upscaling weights |
+| `models/stacking_ensemble.pkl` | Stacking Ensemble | Blended upscaling weights (Ridge L2 Meta-Regressor) |
+| `models/densenet_stealthy_imu.pt`| DenseNet Classifier | Baseline audio reconstruction classifier weights |
 
 ---
 
@@ -86,6 +93,9 @@ To run individual day experiments, navigate into the respective directory and ex
 ```bash
 # Evaluate Day 11/12 Boosting configuration
 python day_11_12_boosting_and_peaking/evaluate_boosting.py
+
+# Evaluate Day 13 Hybrid pipeline configuration
+python Day_13_Experiment/src/run_pipeline.py
 ```
 
 ---
@@ -105,6 +115,7 @@ python day_11_12_boosting_and_peaking/evaluate_boosting.py
 *   **Experiment 6 (Iterative Filtering)**: Addressed LightGBM decision tree "step noise" using multi-pass filters to reduce active model parameter footprint by half.
 *   **Experiment 7 (Advanced Filtering - SavGol/Chebyshev)**: Explored Savitzky-Golay pre-filters (5, 2) to eliminate noise without phase shifts, and Chebyshev Type II post-filters to cut out-of-band noise, achieving the lowest estimated Student WER of **8.33%**.
 *   **Experiment 8 (Feature Boosting - TKEO & Peaking EQ)**: Evaluated targeted voice energy boosters (Teager-Kaiser Energy Operator) and parametric peaking EQs. TKEO (Gain=1.5) dynamically amplified speech transients, achieving an MSE of **0.546592** (beats Butterworth control).
+*   **Experiment 9 (Day 13 Hybrid VAD + Scaling Pipeline)**: Fused InertiEAR energy-envelope voice activity detection, STAG upscaling, and StealthyIMU compatibilities. Significantly improved global semantic metrics, achieving a projected Student SER of **23.39%** and SEER of **21.29%** (a 45% reduction in sentence errors over baseline), despite OOD covariate shifts regressing local WER to **22.02%**.
 
 ### B. Consolidated Performance Benchmarks
 
@@ -125,11 +136,12 @@ python day_11_12_boosting_and_peaking/evaluate_boosting.py
 | **Variant 3 (Post-Butterworth Only)** | **0.535705** | **8.40%** | **27.03%** | **Best Performance; smooths step noise** |
 | **Variant 4 (Combined Pre & Post)** | 0.674275 | 9.68% | 31.42% | Over-smoothing (loss of micro-oscillations) |
 
-#### 3. Advanced Filtering & Gating (300-File Subset)
-| Configuration | Signal MSE | Est. Student WER (%) | Status / Key Takeaway |
-| :--- | :---: | :---: | :--- |
-| **Baseline (Cubic Spline + LGB)** | 1.051120 | 13.02% | Reference Baseline |
-| **Control (Post Butterworth 80Hz)** | 0.548823 | 8.43% | Baseline control |
-| **Pre-Filter Savitzky-Golay (5, 2)** | **0.537072** | **8.33%** | **Best Pre-Filter + Post-Butterworth** |
-| **Post-Filter Chebyshev Type II (80Hz)** | **0.537570** | **8.33%** | **Best Alternative Post-Filter** |
-| **TKEO-Boosted (Gain=1.5)** | **0.546592** | **8.41%** | Dynamic transient envelope boosting |
+#### 3. Advanced Filtering, Boosting & Hybrid Gating (Full Test / Subset Evaluations)
+| Configuration | Signal MSE | Est. Student WER (%) | Est. Student SER (%) | Status / Key Takeaway |
+| :--- | :---: | :---: | :---: | :--- |
+| **Baseline (Cubic Spline + LGB)** | 1.051120 | 13.02% | 42.83% | Reference baseline |
+| **Control (Post Butterworth 80Hz)** | 0.548823 | 8.43% | 27.03% | Baseline post-filter control |
+| **Pre-Filter Savitzky-Golay (5, 2)** | **0.537072** | **8.33%** | *N/A* | Best Pre-Filter + Post-Butterworth |
+| **Post-Filter Chebyshev Type II (80Hz)** | **0.537570** | **8.33%** | *N/A* | Best alternative out-of-band post-filter |
+| **TKEO-Boosted (Gain=1.5)** | **0.546592** | **8.41%** | *N/A* | Dynamic transient envelope boosting |
+| **Day 13 Hybrid Pipeline (VAD + Scaling)**| *N/A* | **22.02%** | **23.39%** | **Best global semantic performance (SEER: 21.29%)** |
