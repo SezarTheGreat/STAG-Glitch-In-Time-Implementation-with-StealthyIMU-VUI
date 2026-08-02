@@ -19,6 +19,47 @@ This experiment seamlessly fused the methodologies of three landmark IMU-speech 
 *   **STAG Up-sampling Engine**: Mapped within Module 4, the system transitions from a restricted 200Hz mechanical sampling rate to a pseudo-acoustic 400Hz proxy domain. This is achieved via Cubic Spline Interpolation and sliding-window LightGBM predictive fusion, successfully mitigating temporal quantization boundaries and generating structurally continuous acoustic features.
 *   **StealthyIMU Application Design**: Represented structurally via the pipeline dataflow constraints and strictly evaluated in Module 5 Branch B. We extract fixed-size 244x244 Mel-spectrogram representations from the upsampled temporal traces and feed them into a DenseNet backbone, directly mirroring the closed-set vocabulary target constraints characteristic of StealthyIMU's evaluation scope.
 
+### Pipeline Architecture Diagram
+Below is the architectural diagram of the 5-module pipeline showing the complete signal flow from raw IMU sensors to the downstream model outputs:
+
+```mermaid
+graph TD
+    %% Inputs
+    A1["Raw Acc (200Hz Z)"]
+    A2["Raw Gyro (200Hz X/Y/Z)"]
+
+    subgraph M1["Module 1: Denoise"]
+        A1 --> B1["Acc Median Filter (k=5)"] --> C1["Acc Wiener & DC Subtraction"]
+        A2 --> B2["Gyro Median Filter (k=5)"] --> C2["Gyro Wiener & DC Subtraction"]
+    end
+    
+    subgraph M2["Module 2: Segmentation (VAD)"]
+        C1 --> D1["Interaction Energy Envelope"]
+        C2 --> D1
+        D1 --> E1["Otsu Adaptive Thresholding"] --> F1["Morphological Gaps & Spikes Smoothing"] --> G1["Active Speech Mask (Boolean)"]
+    end
+
+    subgraph M3["Module 3: Normalization"]
+        C1 --> H1["Calibration (Z-Score purely on Active Speech)"]
+        G1 --> H1
+    end
+
+    subgraph M4["Module 4: STAG Upsampling"]
+        H1 --> I1["Cubic Spline (200Hz to 400Hz)"]
+        I1 --> J1["Feature Context Window (W=2)"]
+        C2 --> J1["Feature Context Window (W=2)"]
+        J1 --> K1["LightGBM Regressor (Predict Even Samples)"]
+        H1 --> L1["Interleave (True Odd & Predicted Even)"]
+        K1 --> L1
+        L1 --> LP["Post-Correction Butterworth Filter (80Hz LP)"]
+    end
+
+    subgraph M5["Module 5: Dual Inference Streams"]
+        LP --> N1["Branch A: Seq2Seq SLU (BiLSTM + Attention GRU)"] --> P1["Semantic Text Tokens"]
+        LP --> O1["Branch B: Spectrogram (244x244) + DenseNet121"] --> P2["Keyword / Intent Class"]
+    end
+```
+
 ---
 
 ## 3. Comprehensive Experimental Results & Baselines
