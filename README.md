@@ -70,6 +70,11 @@ The repository is structured chronologically by the day of experimentation, plac
 │   ├── ARCHITECTURE.md                        # Modular 5-module pipeline architecture
 │   ├── BENCHMARK_RESULTS.md                   # Key performance targets and metrics
 │   └── REPRODUCIBILITY_LOG.md                 # Complete replication instructions
+│
+├── Day_13_Experiment_AccEar/                  # Day 13 AccEar cGAN physical integration pipeline
+│   ├── Day_13_AccEar_Experimentation_Summary.md # Performance summary of cGAN reconstruction
+│   ├── results_summary.md                     # Target evaluations and pipeline metrics
+│   └── pipeline.py                            # End-to-end evaluation codebase
 ```
 
 ---
@@ -96,6 +101,9 @@ python day_11_12_boosting_and_peaking/evaluate_boosting.py
 
 # Evaluate Day 13 Hybrid pipeline configuration
 python Day_13_Experiment/src/run_pipeline.py
+
+# Evaluate Day 13 AccEar cGAN physical pipeline configuration
+python Day_13_Experiment_AccEar/pipeline.py
 ```
 
 ---
@@ -116,6 +124,7 @@ python Day_13_Experiment/src/run_pipeline.py
 *   **Experiment 7 (Advanced Filtering - SavGol/Chebyshev)**: Explored Savitzky-Golay pre-filters (5, 2) to eliminate noise without phase shifts, and Chebyshev Type II post-filters to cut out-of-band noise, achieving the lowest estimated Student WER of **8.33%**.
 *   **Experiment 8 (Feature Boosting - TKEO & Peaking EQ)**: Evaluated targeted voice energy boosters (Teager-Kaiser Energy Operator) and parametric peaking EQs. TKEO (Gain=1.5) dynamically amplified speech transients, achieving an MSE of **0.546592** (beats Butterworth control).
 *   **Experiment 9 (Day 13 Hybrid VAD + Scaling Pipeline)**: Fused InertiEAR energy-envelope voice activity detection, STAG upscaling, and StealthyIMU compatibilities. Significantly improved global semantic metrics, achieving a projected Student SER of **23.39%** and SEER of **21.29%** (a 45% reduction in sentence errors over baseline), despite OOD covariate shifts regressing local WER to **22.02%**.
+*   **Experiment 10 (Day 13 AccEar cGAN Integration)**: Coupled AccEar's physical cGAN speech reconstruction generator with downstream Speech SLU models. Reached a projected Student WER of **15.40%** and an Intent Classification Accuracy of **4.62%** (SER: **95.90%**), demonstrating a **domain mismatch paradox** where feeding synthesized high-fidelity acoustic features into a model trained natively on motion spectral characteristics yields baseline semantic performance.
 
 ### B. Consolidated Performance Benchmarks
 
@@ -145,3 +154,4 @@ python Day_13_Experiment/src/run_pipeline.py
 | **Post-Filter Chebyshev Type II (80Hz)** | **0.537570** | **8.33%** | *N/A* | Best alternative out-of-band post-filter |
 | **TKEO-Boosted (Gain=1.5)** | **0.546592** | **8.41%** | *N/A* | Dynamic transient envelope boosting |
 | **Day 13 Hybrid Pipeline (VAD + Scaling)**| *N/A* | **22.02%** | **23.39%** | **Best global semantic performance (SEER: 21.29%)** |
+| **Day 13 AccEar cGAN Integration** | *N/A* | **15.40%** | **95.90%** | Reconstructs physical audio (domain mismatch paradox) |
