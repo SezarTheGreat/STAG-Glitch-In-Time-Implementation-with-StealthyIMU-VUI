@@ -1,4 +1,4 @@
-# STAG & StealthyIMU Detailed Experimentation History
+# IMU Speech Reconstruction and VUI Vulnerability Detailed Experimentation History
 
 This report maps the entire experimental trajectory of the STAG upscaling and StealthyIMU Speech Language Understanding (SLU) project, structured chronologically from **Experiment 1 (Recreation)** through **Experiment 8 (Feature Boosting)**.
 

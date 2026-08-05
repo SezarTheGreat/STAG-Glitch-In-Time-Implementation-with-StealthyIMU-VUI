@@ -1,4 +1,4 @@
-# STAG Implementation with StealthyIMU VUI
+# IMU Speech Reconstruction and VUI Vulnerability Experimentation
 
 This repository serves as an **active machine learning experimentation environment** developed during an internship at the **Defense Research and Development Organisation (DRDO)**. The project focuses on researching, implementing, and optimizing sensor upscaling and denoising techniques to evaluate side-channel vulnerabilities in Spoken Language Understanding (SLU) and Voice User Interface (VUI) systems.
 
