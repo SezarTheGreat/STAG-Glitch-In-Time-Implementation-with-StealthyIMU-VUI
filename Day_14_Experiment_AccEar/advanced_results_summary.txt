@@ -1,0 +1,59 @@
+================================================================================
+Day 14 AccEar Experiment - Advanced Evaluation Pipeline Summary Report
+================================================================================
+Timestamp        : 2026-08-06T19:02:28.100487+00:00
+Total Samples    : 3070
+Evaluation Device: cpu
+Beam Size        : 15
+Temperature      : 1.25
+Batch Size       : 8
+Execution Mode   : full
+
+--------------------------------------------------------------------------------
+STAGE PERFORMANCE SUMMARY
+--------------------------------------------------------------------------------
+Stage 1: Baseline (AccEar Generator + Greedy SLU)
+  - Word Error Rate (WER)        : 0.7109 (71.09%)
+  - Sentence Error Rate (SER)    : 0.9984 (99.84%)
+  - Intent Accuracy              : 0.1681 (16.81%)
+  - Slot F1-Score                : 0.0862 (Precision: 0.0861, Recall: 0.0863)
+  - Single Entity Error Rate     : 0.9382 (93.82%)
+
+Stage 2: Signal-Level DSP Filtered (Wiener + SG Filter + Greedy SLU)
+  - Word Error Rate (WER)        : 0.7116 (71.16%)
+  - Sentence Error Rate (SER)    : 0.9984 (99.84%)
+  - Intent Accuracy              : 0.1932 (19.32%)
+  - Slot F1-Score                : 0.0992 (Precision: 0.0993, Recall: 0.0992)
+  - Single Entity Error Rate     : 0.9281 (92.81%)
+
+Stage 3: Full Advanced Pipeline (DSP + Beam Search + Temp + LM + Phonetic)
+  - Word Error Rate (WER)        : 0.7871 (78.71%)
+  - Sentence Error Rate (SER)    : 0.9993 (99.93%)
+  - Intent Accuracy              : 0.3016 (30.16%)
+  - Slot F1-Score                : 0.1468 (Precision: 0.1422, Recall: 0.1517)
+  - Single Entity Error Rate     : 0.8785 (87.85%)
+
+--------------------------------------------------------------------------------
+COMPARATIVE PERFORMANCE GAINS
+--------------------------------------------------------------------------------
+Stage 1 -> Stage 2 (Signal-Level DSP Filtering Impact):
+  - WER Reduction                : -0.10%
+  - SER Reduction                : +0.00%
+  - Intent Accuracy Gain         : +14.93%
+  - Slot F1-Score Gain           : +15.08%
+  - SEER Reduction               : +1.08%
+
+Stage 2 -> Stage 3 (NLP Model Post-Tuning Impact):
+  - WER Reduction                : -10.61%
+  - SER Reduction                : -0.09%
+  - Intent Accuracy Gain         : +56.11%
+  - Slot F1-Score Gain           : +47.98%
+  - SEER Reduction               : +5.34%
+
+Stage 1 -> Stage 3 (Full End-to-End Pipeline Cumulative Gain):
+  - WER Reduction                : -10.72%
+  - SER Reduction                : -0.09%
+  - Intent Accuracy Gain         : +79.42%
+  - Slot F1-Score Gain           : +70.30%
+  - SEER Reduction               : +6.36%
+================================================================================
