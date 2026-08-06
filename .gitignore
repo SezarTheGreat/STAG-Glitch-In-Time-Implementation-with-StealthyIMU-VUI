@@ -3,6 +3,8 @@ common/data/StealthyIMU_dataset/
 models/
 Day_13_Experiment_AccEar/checkpoints/
 Day_13_Experiment_AccEar/outputs/
+Day_14_Experiment_AccEar/checkpoints/
+Day_14_Experiment_AccEar/outputs/
 __pycache__/
 *.pyc
 *.pyo
