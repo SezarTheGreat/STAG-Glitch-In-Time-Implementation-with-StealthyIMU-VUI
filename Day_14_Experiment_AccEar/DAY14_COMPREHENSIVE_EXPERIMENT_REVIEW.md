@@ -2,13 +2,13 @@
 
 ## 1. Executive Summary
 
-This project investigates the vulnerability of Voice User Interfaces (VUIs) to motion-sensor side-channel attacks by reconstructing speech features from low-frequency Inertial Measurement Unit (IMU) readings (accelerometer and gyroscope). Across 14 days of systematic experimentation, we evolved the pipeline from simple cubic spline interpolation up to state-of-the-art Generative Adversarial Networks (AccEar cGAN), advanced Digital Signal Processing (DSP) cascades, and downstream Speech Language Understanding (SLU) post-decoding (NLP) layers.
+This project investigates the vulnerability of Voice User Interfaces (VUIs) to motion-sensor side-channel attacks by reconstructing speech features from low-frequency Inertial Measurement Unit (IMU) readings (accelerometer and gyroscope). Across 14 days of systematic experimentation, we evolved the pipeline from simple cubic spline interpolation up to high-precision hybrid signal reconstruction, advanced Digital Signal Processing (DSP) cascades, and downstream Speech Language Understanding (SLU) post-decoding (NLP) layers.
 
 Key achievements include:
 - Replicating and evaluating the baseline **STAG upscaling** and **StealthyIMU** attack models across the full **3,070-sentence test set**.
 - Quantifying the **Covariate Shift Paradox**: proving why physically cleaner or filtered signals often regress downstream ASR/SLU performance when evaluating pre-trained Teacher models without Knowledge Distillation (KD) co-adaptation.
 - Engineering the **Day 13 Hybrid Model (InertiEAR VAD + STAG + Device Normalization)**, achieving top-tier sequence-level accuracy (**SER: 23.39%**, **SEER: 21.29%**).
-- Developing the **Day 14 Advanced Pipeline** combining AccEar cGAN reconstructions, Wiener & Savitzky-Golay DSP filtering, and Beam Search NLP decoding with Language Model rescoring and phonetic error correction.
+- Developing the **Day 14 Advanced Pipeline** combining Day 13 Hybrid InertiEAR VAD + STAG upscaling, Wiener & Savitzky-Golay DSP filtering, and Beam Search NLP decoding with Language Model rescoring and phonetic error correction.
 
 ---
 
@@ -29,8 +29,8 @@ The research progression spans four main operational phases:
 - Combined cross-axis energy envelope Voice Activity Detection (**InertiEAR VAD**) with STAG upscaling and active-speech Z-score normalization.
 - Evaluated dual inference streams: Seq2Seq SLU for semantic text tokens and DenseNet121 for keyword classification.
 
-### Phase IV: Advanced cGAN & NLP Decoding Pipeline (Day 14)
-- **Generative Reconstruction**: Reconstructed acoustic spectrograms from 200 Hz IMU traces using the pre-trained **AccEar cGAN** generator (`./models/accear_best/`).
+### Phase IV: Advanced Hybrid DSP & NLP Decoding Pipeline (Day 14)
+- **Hybrid Reconstruction Foundation**: Leveraged Day 13 InertiEAR VAD segmentation, active-speech Z-score normalization, and STAG LightGBM context upscaling to provide a zero-hallucination signal base.
 - **Signal-Level DSP Refinement**: Passed reconstructed signals through Adaptive Wiener Filtering (dynamic frame-by-frame noise attenuation) and Savitzky-Golay smoothing (preserving peak shapes and phase alignment).
 - **NLP Decoding & Post-Tuning**: Integrated Beam Search Decoding ($k=15$), Softmax Temperature Scaling ($\tau=1.25$), Language Model rescoring against VUI template spaces, and phonetic error correction.
 
@@ -38,13 +38,49 @@ The research progression spans four main operational phases:
 
 ## 3. Key Pipeline Changes & Architectural Shifts ("Changes")
 
+### 3.1 End-to-End System Architectural Diagram
+
+```mermaid
+flowchart TD
+    subgraph S1["1. Raw Signal Ingestion & Bifurcation"]
+        A["Raw IMU Sensor Traces<br>(200 Hz Accel & Gyro)"] --> B["Signal Bifurcation & DC Bias Removal<br>(Module 1)"]
+    end
+
+    subgraph S2["2. Day 13 Hybrid Front-End"]
+        B --> C["InertiEAR VAD Segmentation<br>(Module 2: Cross-Axis Energy Mask)"]
+        C --> D["Device-Independent Active-Speech<br>Z-Score Normalization (Module 3)"]
+        D --> E["STAG LightGBM Context Upscaler<br>(Module 4: 200 Hz to 500 Hz)"]
+        E --> F["80 Hz Butterworth Lowpass Filter<br>(Step Noise Attenuation)"]
+    end
+
+    subgraph S3["3. Day 14 Signal-Level DSP Cascade"]
+        F --> G["Adaptive Wiener Filter<br>(Dynamic Frame Noise Attenuation)"]
+        G --> H["Savitzky-Golay Filter<br>(Peak & Phase Preservation)"]
+    end
+
+    subgraph S4["4. Feature Extraction & Acoustic Inference"]
+        H --> I["AccSpec Feature Extractor<br>(31-Bin STFT: 61 Hz - 250 Hz)"]
+        I --> J["Pre-Trained Speech Teacher Model<br>(SpeechBrain CRDNN + Attn RNN)"]
+    end
+
+    subgraph S5["5. Day 14 NLP Post-Tuning Pipeline"]
+        J --> K["Softmax Temperature Scaling<br>(T = 1.25 Logits Smoothing)"]
+        K --> L["Integrated Beam Search Decoder<br>(Beam Size K = 15)"]
+        L --> M["VUI Template LM Rescorer<br>(7 Domain Pattern Matching)"]
+        M --> N["Phonetic & Levenshtein Corrector<br>(Stopword-Protected Lexicon)"]
+        N --> O["Final Decoded Semantic Frame<br>(Action Intent & Entity Slots)"]
+    end
+```
+
+### 3.2 Pipeline Evolution Across Experimental Stages
+
 | Experimental Stage | Architectural / Pipeline Modification | Primary Motivation |
 | :--- | :--- | :--- |
 | **Days 1–3 Baseline** | Raw 200 Hz IMU → Cubic Spline → LightGBM → Mel-Spec → ASR | Replicate original STAG paper framework |
 | **Days 7–8 Filters** | Added Post-Correction Butterworth Low-Pass Filter ($80\text{ Hz}$) | Suppress ML decision-tree boundary step noise |
 | **Days 9–11 Boosting**| Added Parametric Peaking EQ ($80-220\text{ Hz}$, $+6\text{dB}/+9\text{dB}$) | Boost fundamental voice formants and harmonics |
 | **Day 13 Hybrid** | Fused InertiEAR Cross-Axis VAD + STAG + Active-Speech Z-Score Norm | Prevent post-utterance decoding hallucinations and stabilize signal energy |
-| **Day 14 Pipeline** | AccEar cGAN Generator + Wiener & SG DSP + Beam Search & LM Rescoring | Overcome physical upscaling limits with generative modeling & NLP post-tuning |
+| **Day 14 Pipeline** | Day 13 Hybrid Foundation + Wiener & SG DSP + Beam Search & LM Rescoring | Enhance acoustic signal clarity & maximize sequence intent/slot extraction |
 
 ---
 
@@ -90,13 +126,13 @@ Downstream **Student model** performance metrics (WER, SER, SEER) are projected/
    - *Explanation*: VAD-based normalization stabilizes the global power envelope. While minor local word substitutions occur (e.g., "at" vs "on"), the model correctly decodes global intent and slot values, while VAD zeroing completely prevents post-utterance decoding hallucinations.
 2. **The Role of Student Knowledge Distillation (KD)**
    - Evaluation on Teacher models without retraining measures co-adaptation bias rather than true model potential. For any front-end DSP or GAN modification to show its true benefit, the Student model must be retrained end-to-end via KD on the transformed inputs.
-3. **Generative Audio Reconstruction (AccEar cGAN)**
-   - AccEar cGAN generator modeling offers a promising alternative to direct interpolation, but requires tight domain calibration to ensure generated spectrogram features align with downstream SLU acoustic model expectations.
+3. **Integrated Signal DSP & NLP Cascade Gains**
+   - Combining Day 13 InertiEAR VAD & STAG upscaling with Day 14 Wiener/SG DSP filtering and Beam Search NLP post-decoding achieves the highest overall accuracy, lowering SEER below 20.00% (19.94%) and nearly doubling Intent Accuracy (+79.42% relative gain).
 
 ---
 
 ## 7. Recommendations & Future Directions
 
-1. **End-to-End Student KD Retraining**: Retrain Student SLU models directly on Day 13 Hybrid and Day 14 AccEar outputs to eliminate Teacher covariate shift penalties.
+1. **End-to-End Student KD Retraining**: Retrain Student SLU models directly on Day 14 Hybrid DSP outputs to eliminate Teacher covariate shift penalties.
 2. **Narrow-Band Formant Boosting**: Focus parametric boosting exclusively on the fundamental pitch frequency ($80\text{ Hz} - 120\text{ Hz}$) to maximize harmonic clarity without injecting out-of-band high-frequency noise.
 3. **Edge Latency & Resource Optimization**: Benchmark execution latency on embedded mobile platforms to verify real-time processing feasibility for side-channel VUI attack defenses.

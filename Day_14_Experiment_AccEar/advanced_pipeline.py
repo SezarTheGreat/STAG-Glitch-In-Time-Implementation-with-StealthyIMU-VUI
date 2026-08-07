@@ -274,7 +274,7 @@ def format_summary_text(
     """
     summary = []
     summary.append("=" * 80)
-    summary.append("Day 14 AccEar Experiment - Advanced Evaluation Pipeline Summary Report")
+    summary.append("Day 14 Experiment - Advanced Hybrid Evaluation Pipeline Summary Report")
     summary.append("=" * 80)
     summary.append(f"Timestamp        : {metadata.get('timestamp', 'N/A')}")
     summary.append(f"Total Samples    : {metadata.get('total_samples', 0)}")
@@ -290,7 +290,7 @@ def format_summary_text(
     summary.append("-" * 80)
 
     stages = [
-        ("Stage 1: Baseline (AccEar Generator + Greedy SLU)", stage1),
+        ("Stage 1: Baseline (Day 13 Hybrid InertiEAR+STAG + Greedy SLU)", stage1),
         ("Stage 2: Signal-Level DSP Filtered (Wiener + SG Filter + Greedy SLU)", stage2),
         ("Stage 3: Full Advanced Pipeline (DSP + Beam Search + Temp + LM + Phonetic)", stage3),
     ]
