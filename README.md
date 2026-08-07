@@ -86,15 +86,24 @@ The repository is structured chronologically by the day of experimentation, plac
 
 ## 2. Consolidating Models
 
-All model files, check-pointed weights (`.pt`/`.pkl`), and dataset results archives (`.zip`) are consolidated inside the top-level `/models/` directory:
+Because the model checkpoints, trained weights (`.pt`/`.pkl`/`.ckpt`), and dataset result archives (`.zip`) are large (totaling approximately **1.48 GB**), they are hosted externally to prevent repository bloat and comply with GitHub's file size limits:
+
+> [!IMPORTANT]
+> **Model Download Link**: All consolidated checkpoints, trained model weights, and compressed results can be downloaded from the Google Drive repository:
+> **[DRDO Internship Model & Checkpoint Storage](https://drive.google.com/drive/folders/1XxU6qgm9TXJ-7mgnmH8KpSVJIMoVvdXy?usp=sharing)**
+
+The structure of the consolidated files matches the following layout inside the `/models/` folder when downloaded:
 
 | Path | Model / Weights / Dataset Archive | Description |
 | :--- | :--- | :--- |
 | `models/lgb_stag_upscaling.pkl` | LightGBM Upscaler | Baseline decision tree upscaling weights |
 | `models/stacking_ensemble.pkl` | Stacking Ensemble | Blended upscaling weights (Ridge L2 Meta-Regressor) |
 | `models/densenet_stealthy_imu.pt`| DenseNet Classifier | Baseline audio reconstruction classifier weights |
+| `models/stealthy_imu/Results for phase 1.zip` | Phase 1 Archives | Output logs and weights for Phase 1 |
+| `models/stealthy_imu/Results for phase 2.zip` | Phase 2 Archives | Output logs and weights for Phase 2 |
 
 ---
+
 
 ## 3. How to Run Evaluations
 
