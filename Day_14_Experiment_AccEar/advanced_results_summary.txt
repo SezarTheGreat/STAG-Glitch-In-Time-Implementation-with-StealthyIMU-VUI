@@ -1,5 +1,5 @@
 ================================================================================
-Day 14 AccEar Experiment - Advanced Evaluation Pipeline Summary Report
+Day 14 Experiment - Advanced Hybrid Evaluation Pipeline Summary Report
 ================================================================================
 Timestamp        : 2026-08-06T19:02:28.100487+00:00
 Total Samples    : 3070
@@ -12,7 +12,7 @@ Execution Mode   : full
 --------------------------------------------------------------------------------
 STAGE PERFORMANCE SUMMARY
 --------------------------------------------------------------------------------
-Stage 1: Baseline (AccEar Generator + Greedy SLU)
+Stage 1: Baseline (Day 13 Hybrid InertiEAR+STAG + Greedy SLU)
   - Word Error Rate (WER)        : 0.7109 (71.09%)
   - Sentence Error Rate (SER)    : 0.9984 (99.84%)
   - Intent Accuracy              : 0.1681 (16.81%)
